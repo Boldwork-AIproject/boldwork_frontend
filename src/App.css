@@ -57,5 +57,29 @@ nav {
 
 
 /* Main Page */
-.title { font-size: 61.16px; }
-.subtitle { font-size: 24.26px; }
+#main {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 25%;
+}
+.logo {
+  width: 200px;
+  height: 62px;
+  clip-path: inset(0 137px 0 0);
+}
+#title {
+  margin-top: 24px;
+  font-size: 61.16px; color: white; 
+}
+#subtitle {
+  margin-top: 16px;
+  font-size: 24.26px;  color: white;
+}
+#main_bg {
+  clip-path: inset(0 116px 0 116px);
+  object-fit: fill;
+  z-index: -1;
+}
