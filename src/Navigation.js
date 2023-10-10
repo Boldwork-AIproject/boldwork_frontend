@@ -1,12 +1,10 @@
 import React from 'react';
-import Login from './Login.js';
-import Main from './Main.js'
-import { BrowserRouter, Router, Route, Routes, Link } from 'react-router-dom';
-import { Nav, Navbar, Container, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Nav, Navbar } from 'react-bootstrap';
 
 const Navigation = () => {
     return (
-            <Navbar>
+            <Navbar className="justify-content-center" sticky="top">
                 <Nav>
                     <Navbar.Brand as={Link} to="/"><img src="/bold/logo.png" alt="Logo" width="100px" height="31px"></img></Navbar.Brand>
                     <Nav.Link as={Link} to="upload">AI 상담 분석</Nav.Link>
