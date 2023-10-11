@@ -35,12 +35,12 @@ nav {
   display: inline-block;
   margin: 0 38px;
   padding-top: 0px;
-  vertical-align: middle;
+  /*vertical-align: middle;*/
 }
 
 .nav-link {
   display: inline-block;
-  margin: 30px 38px;
+  margin: 0px 38px;
   font-size: var(--body4);
   color: var(--neutral);
   text-decoration: none;
