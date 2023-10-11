@@ -14,6 +14,17 @@
 
   /*body*/
   --body4: 14px;
+  --body3: 16px;
+}
+
+/*customize bootstrap buttons*/
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: var(--primary-100) !important;
+  border: none !important;
+  font-size: var(--body3) !important;
+  font-weight: bold !important;
+  height: 56px !important;
+  width: 190px !important; /*non-general layout -- move later*/
 }
 
 * {
@@ -35,12 +46,12 @@ nav {
   display: inline-block;
   margin: 0 38px;
   padding-top: 0px;
-  vertical-align: middle;
+  /*vertical-align: middle;*/
 }
 
 .nav-link {
   display: inline-block;
-  margin: 30px 38px;
+  margin: 0px 38px;
   font-size: var(--body4);
   color: var(--neutral);
   text-decoration: none;
@@ -87,4 +98,8 @@ nav {
   width: 100%;
   height: 100vh;
   background-size: cover;
+}
+#main_button {
+  margin: 40px 0 0 0;
+  padding: 0;
 }

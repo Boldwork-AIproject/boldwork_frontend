@@ -4,6 +4,7 @@ import Login from './Login.js'
 import Navigation from './Navigation.js'
 import Main from './Main.js'
 import { BrowserRouter, Router, Route, Routes, Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
