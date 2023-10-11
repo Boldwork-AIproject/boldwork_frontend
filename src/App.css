@@ -75,8 +75,8 @@ nav {
   flex-direction: column;
   position: absolute;
   z-index: 1;
-  top: 50%;
-  left: 25%;
+  top: 35%;
+  left: 20%;
 }
 .logo {
   width: 200px;
@@ -86,6 +86,7 @@ nav {
 #title {
   margin: 24px 0 0 0;
   font-size: 61.16px; color: white; 
+  font-weight: bold;
 }
 #subtitle {
   margin-top: 16px;
