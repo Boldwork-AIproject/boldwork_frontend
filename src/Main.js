@@ -1,9 +1,6 @@
 import React from 'react';
 import './App.css';
-import Login from './Login.js'
-import Navigation from './Navigation.js'
-import { BrowserRouter, Router, Route, Routes, Link } from 'react-router-dom';
-import { Nav, Navbar, Container, Col, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 const Main = () => {
     return (
