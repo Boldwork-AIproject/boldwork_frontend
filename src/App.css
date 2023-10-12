@@ -78,10 +78,16 @@ nav {
   top: 35%;
   left: 20%;
 }
+/*
 .logo {
   width: 200px;
   height: 62px;
   clip-path: inset(0 137px 0 0);
+}
+*/
+.logo {
+  width: 62px;
+  height: 62px;
 }
 #title {
   margin: 24px 0 0 0;
