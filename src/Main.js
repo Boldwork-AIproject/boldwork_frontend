@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
+import './Main.css';
 import { ButtonLarge } from './styledComponents.js'
 import { Container } from 'react-bootstrap';
-
 import { Link } from 'react-router-dom';
 
 const Main = () => {
