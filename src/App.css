@@ -1,21 +1,48 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 
-/* add to tailwind config later */
 :root {
-  /*primary colors*/
+  /* COLORS - PRIMARY */
   --primary-100: #372FFF;
+  --primary-90: #4A42FF;
+  --primary-80: #5E57FF;
+  --primary-70: #716BFF;
+  --primary-60: #8480FF;
+  --primary-50: #9894FF;
+  --primary-40: #ACA8FF;
+  --primary-30: #BFBDFF;
+  --primary-20: #D3D1FF;
+  --primary-10: #E6E5FF;
+  --primary-5: #FAFAFF;
 
-  /*neutral colors*/
+  /* COLORS - NEUTRAL */
   --neutral-100: #030303;
-  --neutral: #333333;
+  --neutral-90: #1A1A1A;
+  --neutral-80: #333333;
+  --neutral-70: #4D4D4D;
   --neutral-60: #4D4D4D;
   --neutral-30: #B3B3B3;
   --neutral-20: #CCCCCC;
+  --neutral-10: #E6E6E6;
+  --neutral-5: #F3F3F3;
 
-  /*body*/
-  --body-5: 12px;
-  --body-4: 14px;
+  /* COLORS - SYSTEM */
+  --warning: #FF4848;
+  --success: #07A320;
+  --timeline: #54ADFF;
+
+  /* FONT SIZES - HEADING */
+  --h1: 40px;
+  --h2: 32px;
+  --h3: 28px;
+  --h4: 24px;
+  --h5: 20px;
+
+  /* FONT SIZES - BODY */
+  --body-1: 20px;
+  --body-2: 18px;
   --body-3: 16px;
+  --body-4: 14px;
+  --body-5: 12px;
 }
 
 /* NOTE. switched to styled-components
@@ -56,7 +83,7 @@ nav {
   display: inline-block;
   margin: 0px 38px;
   font-size: var(--body-4);
-  color: var(--neutral);
+  color: var(--neutral-80);
   text-decoration: none;
 }
 
