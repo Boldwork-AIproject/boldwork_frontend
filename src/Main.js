@@ -18,7 +18,6 @@ const Main = () => {
                 </Container>
             </Container>
             <div id="main_bg"></div>
-            
         </>
     );
 }
