@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Navigation from './Navigation.js';
 import { Container } from 'react-bootstrap';
 
 const Login = () => {
