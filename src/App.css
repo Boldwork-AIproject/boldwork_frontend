@@ -30,19 +30,18 @@
   --success: #07A320;
   --timeline: #54ADFF;
 
-  /* FONT SIZES - HEADING */
-  --h1: 40px;
-  --h2: 32px;
-  --h3: 28px;
-  --h4: 24px;
-  --h5: 20px;
-
   /* FONT SIZES - BODY */
   --body-1: 20px;
   --body-2: 18px;
   --body-3: 16px;
   --body-4: 14px;
   --body-5: 12px;
+
+  /* ICONS */
+  --avatar: url(/public/icons/avatar.png);
+  --link: url(/public/icons/link.png);
+  --kakao: url(/public/social/kakaotalk_logo.png); 
+  --naver: url(/public/social/naver_logo.png);
 }
 
 /* NOTE. switched to styled-components
