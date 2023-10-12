@@ -13,19 +13,22 @@
   --neutral-20: #CCCCCC;
 
   /*body*/
-  --body4: 14px;
-  --body3: 16px;
+  --body-5: 12px;
+  --body-4: 14px;
+  --body-3: 16px;
 }
 
-/*customize bootstrap buttons*/
+/* NOTE. switched to styled-components
+* customize bootstrap buttons 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: var(--primary-100) !important;
   border: none !important;
-  font-size: var(--body3) !important;
+  font-size: var(--body-3) !important;
   font-weight: bold !important;
   height: 56px !important;
-  width: 190px !important; /*non-general layout -- move later*/
+  width: 190px !important;
 }
+*/
 
 * {
   font-family: 'Pretendard', sans-serif;
@@ -52,7 +55,7 @@ nav {
 .nav-link {
   display: inline-block;
   margin: 0px 38px;
-  font-size: var(--body4);
+  font-size: var(--body-4);
   color: var(--neutral);
   text-decoration: none;
 }
