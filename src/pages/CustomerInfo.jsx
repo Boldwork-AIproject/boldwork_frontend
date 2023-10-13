@@ -65,7 +65,7 @@ export default function CustomerInfo() {
             phone={el.phone}
             onDelete={() => {}}
             onDetail={() => {
-              navigate(`/info/${el.id}`);
+              navigate(`/customer-info/${el.id}`);
             }}
           />
         ))}

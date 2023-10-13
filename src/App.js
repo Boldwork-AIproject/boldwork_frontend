@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Login from "./pages/Login.jsx";
-import Navigation from "./components/Navigation.js";
+import Navigation from "./Navigation.js";
 import Main from "./pages/Main.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,11 +31,11 @@ function App() {
             <Route path="new" element={<UploadCallNew />} />
             <Route index element={<UploadCall />} />
           </Route>
-          <Route path="check">
+          <Route path="check-call">
             <Route index element={<CheckCall />} />
             <Route path=":id" element={<CheckCallDetail />} />
           </Route>
-          <Route path="info">
+          <Route path="customer-info">
             <Route index element={<CustomerInfo />} />
             <Route path=":id" element={<CustomerInfoDetail />} />
           </Route>

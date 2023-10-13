@@ -1,8 +1,8 @@
 import React from "react";
 import "../App.css";
-import "../Main.css";
-import { ButtonLargePrimary } from "../styledComponents.js";
+import { ButtonLarge } from "../styledComponents.js";
 import { Container } from "react-bootstrap";
+
 import { Link } from "react-router-dom";
 
 const Main = () => {
@@ -17,8 +17,8 @@ const Main = () => {
           똑똑한 AI와 함께, 편리한 콜상담을 경험해보세요.
         </p>
         <Container id="main_button">
-          <ButtonLargePrimary>상담 업로드하기</ButtonLargePrimary>
-          <Link to="/test_components" className="ms-5">
+          <ButtonLarge>상담 업로드하기</ButtonLarge>
+          <Link to="/test_router" className="ms-5">
             Components 확인
           </Link>
         </Container>

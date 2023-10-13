@@ -73,7 +73,7 @@ export default function CheckCall() {
             categories={el.categories}
             onDelete={() => {}}
             onDetail={() => {
-              navigate(`/check/${el.id}`);
+              navigate(`/check-call/${el.id}`);
             }}
           />
         ))}
