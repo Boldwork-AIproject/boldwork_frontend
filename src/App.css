@@ -1,25 +1,52 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 
-/* add to tailwind config later */
 :root {
-  /*primary colors*/
+  /* COLORS - PRIMARY */
+  --primary-100-dark: #261DFE;
   --primary-100: #372FFF;
+  --primary-90: #4A42FF;
+  --primary-80: #5E57FF;
+  --primary-70: #716BFF;
+  --primary-60: #8480FF;
+  --primary-50: #9894FF;
+  --primary-40: #ACA8FF;
+  --primary-30: #BFBDFF;
+  --primary-20: #D3D1FF;
+  --primary-10: #E6E5FF;
+  --primary-5: #FAFAFF;
 
-  /*neutral colors*/
+  /* COLORS - NEUTRAL */
   --neutral-100: #030303;
-  --neutral: #333333;
+  --neutral-90: #1A1A1A;
+  --neutral-80: #333333;
+  --neutral-70: #4D4D4D;
   --neutral-60: #4D4D4D;
   --neutral-30: #B3B3B3;
   --neutral-20: #CCCCCC;
+  --neutral-10: #E6E6E6;
+  --neutral-5: #F3F3F3;
 
-  /*body*/
-  --body-5: 12px;
-  --body-4: 14px;
+  /* COLORS - SYSTEM */
+  --warning: #FF4848;
+  --success: #07A320;
+  --timeline: #54ADFF;
+
+  /* FONT SIZES - BODY */
+  --body-1: 20px;
+  --body-2: 18px;
   --body-3: 16px;
+  --body-4: 14px;
+  --body-5: 12px;
+
+  /* ICONS */
+  --avatar: url(/public/icons/avatar.png);
+  --link: url(/public/icons/link.png);
+  --kakao: url(/public/social/kakaotalk_logo.png); 
+  --naver: url(/public/social/naver_logo.png);
 }
 
-/* NOTE. switched to styled-components
-* customize bootstrap buttons 
+/* BOOTSTRAP CONFIG */
+/* custom large buttons
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: var(--primary-100) !important;
   border: none !important;
@@ -29,87 +56,43 @@
   width: 190px !important;
 }
 */
+/* custom radio and check buttons */
+.form-check-inline {
+  /*change spacing between inline buttons*/
+  diplay: inline-block;
+  margin-right: 32px !important;
+}
+.form-check-input:checked[type=radio] {
+  /*custom radio*/
+  border-color: var(--primary-100);
+  background-color: var(--primary-100);
+}
+.form-check-input:checked {
+  /*custom checked*/
+  border-color: var(--primary-100);
+  background-color: var(--primary-100);
+}
+
+.nav-underline .nav-link.active {
+  color: var(--primary-100) !important;
+  border-bottom-color: var(--primary-100) !important;
+}
+.nav-underline .nav-link {
+  border-bottom: var(--neutral-10) solid !important;
+  margin: 0px !important;
+  padding-left: 15rem !important;
+  padding-right: 15rem !important;
+}
+
+/*override navigation link and hover colors*/
+.nav {
+  --bs-nav-link-color: var(--primary-100) !important;
+  --bs-nav-link-hover-color: var(--primary-100) !important;
+}
+.nav-underline {
+  --bs-nav-underline-gap: 0px !important;
+}
 
 * {
   font-family: 'Pretendard', sans-serif;
-}
-
-
-/* Navigation Menu */
-nav {
-  position: relative;
-  background-color: white;
-  width: 100%;
-  height: 80px;
-  text-align: center;
-  box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-brand {
-  display: inline-block;
-  margin: 0 38px;
-  padding-top: 0px;
-  /*vertical-align: middle;*/
-}
-
-.nav-link {
-  display: inline-block;
-  margin: 0px 38px;
-  font-size: var(--body-4);
-  color: var(--neutral);
-  text-decoration: none;
-}
-
-.nav-link:nth-last-of-type(-n+3) {
-  color: var(--neutral-30);
-  margin: 0 16px;
-}
-.nav-link:nth-last-child(3) {
-  margin-left: 390px;
-}
-.nav-link:nth-last-child(2) {
-  cursor: default;
-}
-
-
-/* Main Page */
-#main {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  z-index: 1;
-  top: 35%;
-  left: 20%;
-}
-/*
-.logo {
-  width: 200px;
-  height: 62px;
-  clip-path: inset(0 137px 0 0);
-}
-*/
-.logo {
-  width: 62px;
-  height: 62px;
-}
-#title {
-  margin: 24px 0 0 0;
-  font-size: 61.16px; color: white; 
-  font-weight: bold;
-}
-#subtitle {
-  margin-top: 16px;
-  font-size: 24.26px;  color: white;
-  line-height: 35.23px;
-}
-#main_bg {
-  z-index: -1;
-  background-image: linear-gradient(rgba(34, 34, 34, 0.5), rgba(34, 34, 34, 0.5)), url('/public/bold/main_bg.png');
-  width: 100%;
-  height: 100vh;
-  background-size: cover;
-}
-#main_button {
-  margin: 40px 0 0 0;
-  padding: 0;
 }
