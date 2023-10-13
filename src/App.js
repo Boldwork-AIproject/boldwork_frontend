@@ -15,8 +15,6 @@ import CustomerInfoDetail from "./pages/CustomerInfoDetail";
 import MyPage from "./pages/MyPage";
 import CheckCallDetail from "./pages/CheckCallDetail";
 
-import TestComponents from "./styledTest.js";
-
 function App() {
   return (
     <>
@@ -40,11 +38,7 @@ function App() {
             <Route path=":id" element={<CustomerInfoDetail />} />
           </Route>
           <Route path="mypage" element={<MyPage />} />
-          <Route path="/test_components" element={<TestComponents />} />
         </Routes>
-      </BrowserRouter>
-      <BrowserRouter>
-        <Navigation />
       </BrowserRouter>
     </>
   );
