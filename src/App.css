@@ -1,16 +1,16 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
-@import url("https://cdn.jsdelivr.net/npm/@typopro/web-montserrat@3.7.5/TypoPRO-Montserrat.min.css");
+
 /* add to tailwind config later */
 :root {
   /*primary colors*/
-  --primary-100: #372fff;
+  --primary-100: #372FFF;
 
   /*neutral colors*/
   --neutral-100: #030303;
   --neutral: #333333;
-  --neutral-60: #4d4d4d;
-  --neutral-30: #b3b3b3;
-  --neutral-20: #cccccc;
+  --neutral-60: #4D4D4D;
+  --neutral-30: #B3B3B3;
+  --neutral-20: #CCCCCC;
 
   /*body*/
   --body-5: 12px;
@@ -31,8 +31,9 @@
 */
 
 * {
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
 }
+
 
 /* Navigation Menu */
 nav {
@@ -59,7 +60,7 @@ nav {
   text-decoration: none;
 }
 
-.nav-link:nth-last-of-type(-n + 3) {
+.nav-link:nth-last-of-type(-n+3) {
   color: var(--neutral-30);
   margin: 0 16px;
 }
@@ -69,6 +70,7 @@ nav {
 .nav-link:nth-last-child(2) {
   cursor: default;
 }
+
 
 /* Main Page */
 #main {
@@ -92,23 +94,17 @@ nav {
 }
 #title {
   margin: 24px 0 0 0;
-  font-size: 61.16px;
-  color: white;
+  font-size: 61.16px; color: white; 
   font-weight: bold;
 }
 #subtitle {
   margin-top: 16px;
-  font-size: 24.26px;
-  color: white;
+  font-size: 24.26px;  color: white;
   line-height: 35.23px;
 }
 #main_bg {
   z-index: -1;
-  background-image: linear-gradient(
-      rgba(34, 34, 34, 0.5),
-      rgba(34, 34, 34, 0.5)
-    ),
-    url("/public/bold/main_bg.png");
+  background-image: linear-gradient(rgba(34, 34, 34, 0.5), rgba(34, 34, 34, 0.5)), url('/public/bold/main_bg.png');
   width: 100%;
   height: 100vh;
   background-size: cover;
