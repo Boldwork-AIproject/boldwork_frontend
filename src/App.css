@@ -1,25 +1,54 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 @import url("https://cdn.jsdelivr.net/npm/@typopro/web-montserrat@3.7.5/TypoPRO-Montserrat.min.css");
 /* add to tailwind config later */
-:root {
-  /*primary colors*/
-  --primary-100: #372fff;
 
-  /*neutral colors*/
+:root {
+  /* COLORS - PRIMARY */
+  --primary-100-dark: #261dfe;
+  --primary-100: #372fff;
+  --primary-90: #4a42ff;
+  --primary-80: #5e57ff;
+  --primary-70: #716bff;
+  --primary-60: #8480ff;
+  --primary-50: #9894ff;
+  --primary-40: #aca8ff;
+  --primary-30: #bfbdff;
+  --primary-20: #d3d1ff;
+  --primary-10: #e6e5ff;
+  --primary-5: #fafaff;
+
+  /* COLORS - NEUTRAL */
   --neutral-100: #030303;
-  --neutral: #333333;
+  --neutral-90: #1a1a1a;
+  --neutral-80: #333333;
+  --neutral-70: #4d4d4d;
   --neutral-60: #4d4d4d;
   --neutral-30: #b3b3b3;
   --neutral-20: #cccccc;
+  --neutral-10: #e6e6e6;
+  --neutral-5: #f3f3f3;
 
-  /*body*/
-  --body-5: 12px;
-  --body-4: 14px;
+  /* COLORS - SYSTEM */
+  --warning: #ff4848;
+  --success: #07a320;
+  --timeline: #54adff;
+
+  /* FONT SIZES - BODY */
+  --body-1: 20px;
+  --body-2: 18px;
   --body-3: 16px;
+  --body-4: 14px;
+  --body-5: 12px;
+
+  /* ICONS */
+  --avatar: url(/public/icons/avatar.png);
+  --link: url(/public/icons/link.png);
+  --kakao: url(/public/social/kakaotalk_logo.png);
+  --naver: url(/public/social/naver_logo.png);
 }
 
-/* NOTE. switched to styled-components
-* customize bootstrap buttons 
+/* BOOTSTRAP CONFIG */
+/* custom large buttons
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: var(--primary-100) !important;
   border: none !important;
@@ -29,6 +58,42 @@
   width: 190px !important;
 }
 */
+/* custom radio and check buttons */
+.form-check-inline {
+  /*change spacing between inline buttons*/
+  diplay: inline-block;
+  margin-right: 32px !important;
+}
+.form-check-input:checked[type="radio"] {
+  /*custom radio*/
+  border-color: var(--primary-100);
+  background-color: var(--primary-100);
+}
+.form-check-input:checked {
+  /*custom checked*/
+  border-color: var(--primary-100);
+  background-color: var(--primary-100);
+}
+
+.nav-underline .nav-link.active {
+  color: var(--primary-100) !important;
+  border-bottom-color: var(--primary-100) !important;
+}
+.nav-underline .nav-link {
+  border-bottom: var(--neutral-10) solid !important;
+  margin: 0px !important;
+  padding-left: 15rem !important;
+  padding-right: 15rem !important;
+}
+
+/*override navigation link and hover colors*/
+.nav {
+  --bs-nav-link-color: var(--primary-100) !important;
+  --bs-nav-link-hover-color: var(--primary-100) !important;
+}
+.nav-underline {
+  --bs-nav-underline-gap: 0px !important;
+}
 
 * {
   font-family: "Pretendard", sans-serif;
