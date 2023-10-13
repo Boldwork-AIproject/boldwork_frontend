@@ -43,9 +43,6 @@ function App() {
           <Route path="/test_components" element={<TestComponents />} />
         </Routes>
       </BrowserRouter>
-      <BrowserRouter>
-        <Navigation />
-      </BrowserRouter>
     </>
   );
 }
