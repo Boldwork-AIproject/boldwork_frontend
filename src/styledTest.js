@@ -5,7 +5,7 @@ import { ButtonLargePrimary, ButtonLargeOutline, ButtonLargeDisabled, ButtonLarg
          ButtonSmallPrimary, ButtonSmallOutline, ButtonSmallDisabled, ButtonSmallSecondary,
          Input,
          AvatarIcon, LinkIcon, KakaoIcon, NaverIcon, KakaoLabelIcon, NaverLabelIcon } from './styledComponents.js'
-import { Container, Form } from 'react-bootstrap';
+import { Container, Form, Nav } from 'react-bootstrap';
 
 const TestComponents = () => {
     return (
@@ -60,6 +60,14 @@ const TestComponents = () => {
             <Container class="tab">
                 <br /><br />
                 <h1 class="display-5">Tab</h1>
+                <Nav variant="underline" defaultActiveKey="/home">
+                    <Nav.Item>
+                        <Nav.Link eventKey="link-1">Active</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link eventKey="link-2">Other</Nav.Link>
+                    </Nav.Item>
+                </Nav>
             </Container>
 
             <Container class="icons">

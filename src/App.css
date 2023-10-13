@@ -73,6 +73,26 @@
   background-color: var(--primary-100);
 }
 
+.nav-underline .nav-link.active {
+  color: var(--primary-100) !important;
+  border-bottom-color: var(--primary-100) !important;
+}
+.nav-underline .nav-link {
+  border-bottom: var(--neutral-10) solid !important;
+  margin: 0px !important;
+  padding-left: 15rem !important;
+  padding-right: 15rem !important;
+}
+
+/*override navigation link and hover colors*/
+.nav {
+  --bs-nav-link-color: var(--primary-100) !important;
+  --bs-nav-link-hover-color: var(--primary-100) !important;
+}
+.nav-underline {
+  --bs-nav-underline-gap: 0px !important;
+}
+
 * {
   font-family: 'Pretendard', sans-serif;
 }
