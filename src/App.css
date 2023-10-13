@@ -2,6 +2,7 @@
 
 :root {
   /* COLORS - PRIMARY */
+  --primary-100-dark: #261DFE;
   --primary-100: #372FFF;
   --primary-90: #4A42FF;
   --primary-80: #5E57FF;
@@ -44,8 +45,8 @@
   --naver: url(/public/social/naver_logo.png);
 }
 
-/* NOTE. switched to styled-components
-* customize bootstrap buttons 
+/* BOOTSTRAP CONFIG */
+/* custom large buttons
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: var(--primary-100) !important;
   border: none !important;
@@ -55,6 +56,22 @@
   width: 190px !important;
 }
 */
+/* custom radio and check buttons */
+.form-check-inline {
+  /*change spacing between inline buttons*/
+  diplay: inline-block;
+  margin-right: 32px !important;
+}
+.form-check-input:checked[type=radio] {
+  /*custom radio*/
+  border-color: var(--primary-100);
+  background-color: var(--primary-100);
+}
+.form-check-input:checked {
+  /*custom checked*/
+  border-color: var(--primary-100);
+  background-color: var(--primary-100);
+}
 
 * {
   font-family: 'Pretendard', sans-serif;
