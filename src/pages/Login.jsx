@@ -2,6 +2,7 @@ import React from "react";
 import "../App.css";
 import { Container } from "react-bootstrap";
 import { Input, ButtonBlockPrimary, KakaoLabelIcon, NaverLabelIcon } from "../styledComponents"
+import { Link } from 'react-router-dom';
 
 const loginContainer = {
   position: "absolute",
@@ -58,14 +59,14 @@ const Login = () => {
 
         <Container id="input_boxes" style={inputContainer}>
           <Input placeholder="이메일을 입력해주세요." />
-          <Input placeholder="비밀번호를 입력해주세요."/>
+          <Input type="password" placeholder="비밀번호를 입력해주세요."/>
           <ButtonBlockPrimary style={{marginTop: "22px"}}>로그인</ButtonBlockPrimary>
         </Container>
 
         <p style={{fontSize:"var(--body-4)", marginTop:"24px"}}>
           아직 회원이 아니세요?
           <span style={{color:"var(--primary-100)", marginLeft:"16px", fontWeight:"bold"}}>
-            <a href="/signup" style={{textDecoration: "none", color:"var(--primary-100)"}}>회원가입하기</a>
+            <Link to="/signup" style={{textDecoration: "none", color:"var(--primary-100)"}}>회원가입하기</Link>
             </span>
         </p> 
         
