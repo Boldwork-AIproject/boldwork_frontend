@@ -33,14 +33,18 @@ const Login = () => {
         </p> 
         
         <Container id="social_login" style={socialLoginContainer}>
+          <Link to="/kakao-login" style={{textDecoration: "none", color:"inherit"}}>
           <Container id="kakao_login" style={logoContainer}>
             <KakaoLabelIcon style={{}} />
             <p style={{fontSize:"var(--body-4)", marginTop:"8px"}}>카카오톡으로 시작</p>
           </Container>
-          <Container id="naver_login" style={logoContainer}>
-            <NaverLabelIcon />
-            <p style={{fontSize:"var(--body-4)", marginTop:"8px"}}>네이버로 시작</p>
-          </Container>
+          </Link>
+          <Link to="/naver-login" style={{textDecoration: "none", color:"inherit"}}>
+            <Container id="naver_login" style={logoContainer}>
+              <NaverLabelIcon />
+              <p style={{fontSize:"var(--body-4)", marginTop:"8px"}}>네이버로 시작</p>
+            </Container>
+          </Link>
         </Container>
       </Container>
     </>
