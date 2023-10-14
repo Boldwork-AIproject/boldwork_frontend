@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
-import Login from "./pages/Login.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navigation from "./components/Navigation.js";
 import Main from "./pages/Main.jsx";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Login from "./pages/Login.jsx";
+import SignUp from "./pages/SignUp.jsx";
 import SignupComplete from "./pages/SignupComplete";
 import UploadCallSelect from "./pages/UploadCallSelect";
 import UploadCallNew from "./pages/UploadCallNew";
@@ -25,6 +26,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/signup-complete" element={<SignupComplete />} />
           <Route path="/upload-call">
             <Route path="select" element={<UploadCallSelect />} />
