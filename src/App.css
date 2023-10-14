@@ -68,11 +68,13 @@
   /*custom radio*/
   border-color: var(--primary-100);
   background-color: var(--primary-100);
+  box-shadow: none !important;
 }
 .form-check-input:checked {
   /*custom checked*/
   border-color: var(--primary-100);
   background-color: var(--primary-100);
+  box-shadow: none !important;
 }
 
 .nav-underline .nav-link.active {
@@ -98,6 +100,20 @@
 * {
   font-family: "Pretendard", sans-serif;
 }
+
+/* override form control padding and colors */
+.form-control {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  padding-left: 16px !important;
+  border-radius: 8px !important;
+  font-size: var(--body-3) !important;
+}
+.form-control:focus {
+  border-color: var(--primary-100) !important;
+  box-shadow: none !important;
+}
+
 
 /* Navigation Menu */
 nav {

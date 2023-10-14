@@ -20,7 +20,7 @@ export const ButtonBlockPrimary = styled.button`
 export const ButtonLargePrimary = styled.button`
     background-color: var(--primary-100);
     color: white;
-    border: none;
+    border: 1px solid var(--primary-100);
     font-size: var(--body-3);
     font-weight: bold;
     height: 56px;
@@ -31,12 +31,14 @@ export const ButtonLargePrimary = styled.button`
 
     &:hover {
         background-color: var(--primary-100-dark);
+        border: 1px solid var(--primary-100-dark);
     }
 `
 export const ButtonLargeOutline = styled.button`
     background-color: var(--primary-5);
     color: var(--primary-100);
-    border: 1px solid var(--primary-100);
+    border: none;
+    box-shadow: 0 0 0 1px var(--primary-100) inset;
     font-size: var(--body-3);
     font-weight: bold;
     height: 56px;
@@ -48,13 +50,14 @@ export const ButtonLargeOutline = styled.button`
     &:hover {
         background-color: var(--primary-100);
         color: white;
-        border: none;
+        border: 1px solid var(--primary-100-dark);
+        box-shadow: none;
     }
 `
 export const ButtonLargeDisabled = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-30);
-    border: none;
+    border: 1px solid var(--neutral-5);
     font-size: var(--body-3);
     font-weight: bold;
     height: 56px;
@@ -66,7 +69,7 @@ export const ButtonLargeDisabled = styled.button`
 export const ButtonLargeSecondary = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-60);
-    border: none;
+    border: 1px solid var(--neutral-5);
     font-size: var(--body-3);
     font-weight: bold;
     height: 56px;
@@ -78,7 +81,7 @@ export const ButtonLargeSecondary = styled.button`
 export const ButtonMediumPrimary = styled.button`
     background-color: var(--primary-100);
     color: white;
-    border: none;
+    border: 1px solid var(--primary-100);
     font-size: var(--body-3);
     font-weight: medium;
     height: 40px;
@@ -86,15 +89,20 @@ export const ButtonMediumPrimary = styled.button`
     border-radius: 8px;
     text-align: center;
     margin: 10px;
+    padding: 11px 36px 33px 36px;
+    white-space: nowrap;
+    overflow: hidden;
 
     &:hover {
         background-color: var(--primary-100-dark);
+        border: 1px solid var(--primary-100-dark);
     }
 `
 export const ButtonMediumOutline = styled.button`
     background-color: var(--primary-5);
     color: var(--primary-100);
-    border: 1px solid var(--primary-100);
+    border: none;
+    box-shadow: 0 0 0 1px var(--primary-100) inset;
     font-size: var(--body-3);
     font-weight: medium;
     height: 40px;
@@ -102,17 +110,21 @@ export const ButtonMediumOutline = styled.button`
     border-radius: 8px;
     text-align: center;
     margin: 10px;
+    padding: 11px 36px 33px 36px;
+    white-space: nowrap;
+    overflow: hidden;
 
     &:hover {
         background-color: var(--primary-100);
         color: white;
-        border: none;
+        border: 1px solid var(--primary-100-dark);
+        box-shadow: none;
     }
 `
 export const ButtonMediumDisabled = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-30);
-    border: none;
+    border: 1px solid var(--neutral-5);
     font-size: var(--body-3);
     font-weight: medium;
     height: 40px;
@@ -120,11 +132,14 @@ export const ButtonMediumDisabled = styled.button`
     border-radius: 8px;
     text-align: center;
     margin: 10px;
+    padding: 11px 36px 33px 36px;
+    white-space: nowrap;
+    overflow: hidden;
 `
 export const ButtonMediumSecondary = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-60);
-    border: none;
+    border: 1px solid var(--neutral-5);
     font-size: var(--body-3);
     font-weight: medium;
     height: 40px;
@@ -132,11 +147,14 @@ export const ButtonMediumSecondary = styled.button`
     border-radius: 8px;
     text-align: center;
     margin: 10px;
+    padding: 11px 36px 33px 36px;
+    white-space: nowrap;
+    overflow: hidden;
 `
 export const ButtonSmallPrimary = styled.button`
     background-color: var(--primary-100);
     color: white;
-    border: none;
+    border: 1px solid var(--primary-100);
     font-size: var(--body-5);
     font-weight: regular;
     height: 38px;
@@ -147,12 +165,14 @@ export const ButtonSmallPrimary = styled.button`
 
     &:hover {
         background-color: var(--primary-100-dark);
+        border: 1px solid var(--primary-100-dark);
     }
 `
 export const ButtonSmallOutline = styled.button`
     background-color: var(--primary-5);
     color: var(--primary-100);
-    border: 1px solid var(--primary-100);
+    border: none;
+    box-shadow: 0 0 0 1px var(--primary-100) inset;
     font-size: var(--body-5);
     font-weight: regular;
     height: 38px;
@@ -165,12 +185,13 @@ export const ButtonSmallOutline = styled.button`
         background-color: var(--primary-100);
         color: white;
         border: none;
+        box-shadow: none;
     }
 `
 export const ButtonSmallDisabled = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-30);
-    border: none;
+    border: 1px solid var(--neutral-5);
     font-size: var(--body-5);
     font-weight: regular;
     height: 38px;
@@ -182,7 +203,7 @@ export const ButtonSmallDisabled = styled.button`
 export const ButtonSmallSecondary = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-60);
-    border: none;
+    border: 1px solid var(--neutral-5);
     font-size: var(--body-5);
     font-weight: regular;
     height: 38px;
@@ -190,6 +211,17 @@ export const ButtonSmallSecondary = styled.button`
     border-radius: 8px;
     text-align: center;
     margin: 10px;
+`
+
+export const PrevNextContainer = styled.div`
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    & > *:not(:last-child) {
+        margin-right: 10px;
+    }
 `
 
 /* INPUT */
