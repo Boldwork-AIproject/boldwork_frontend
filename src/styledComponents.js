@@ -247,17 +247,6 @@ export const PrevNextContainer = styled.div`
     }
 `
 
-export const PrevNextContainer = styled.div`
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    & > *:not(:last-child) {
-        margin-right: 10px;
-    }
-`
-
 /* INPUT */
 export const Input = styled.input `
     /*width: 40%;*/
