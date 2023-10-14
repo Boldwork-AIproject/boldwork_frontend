@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
-import { Container } from "react-bootstrap";
-import { Input, ButtonBlockPrimary, KakaoLabelIcon, NaverLabelIcon } from "../styledComponents"
+import { Container, Form } from "react-bootstrap";
+import { ButtonBlockPrimary, KakaoLabelIcon, NaverLabelIcon } from "../styledComponents"
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -16,9 +16,13 @@ const Login = () => {
         </Container>
 
         <Container id="input_boxes" style={inputContainer}>
-          <Input placeholder="이메일을 입력해주세요." />
-          <Input type="password" placeholder="비밀번호를 입력해주세요."/>
-          <ButtonBlockPrimary style={{marginTop: "22px"}}>로그인</ButtonBlockPrimary>
+          <Form.Group style={{marginBottom: "16px", width: "508px"}} controlId="formEmail">
+              <Form.Control style={{height: "48px"}} type="email" placeholder="이메일을 입력해주세요." />
+          </Form.Group>
+          <Form.Group style={{width: "508px"}} controlId="formPass">
+              <Form.Control style={{height: "48px"}} type="password" placeholder="비밀번호를 입력해주세요." />
+          </Form.Group>
+          <ButtonBlockPrimary style={{marginTop: "32px"}}>로그인</ButtonBlockPrimary>
         </Container>
 
         <p style={{fontSize:"var(--body-4)", marginTop:"24px"}}>
