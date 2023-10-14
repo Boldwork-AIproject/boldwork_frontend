@@ -1,6 +1,22 @@
 import styled from 'styled-components';
 
 /* BUTTONS */
+export const ButtonBlockPrimary = styled.button`
+    background-color: var(--primary-100);
+    color: white;
+    border: none;
+    font-size: var(--body-3);
+    font-weight: bold;
+    height: 56px;
+    width: 508px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 10px;
+
+    &:hover {
+        background-color: var(--primary-100-dark);
+    }
+`
 export const ButtonLargePrimary = styled.button`
     background-color: var(--primary-100);
     color: white;
@@ -176,9 +192,10 @@ export const ButtonSmallSecondary = styled.button`
     margin: 10px;
 `
 
-/* TEXTBOXES */
+/* INPUT */
 export const Input = styled.input `
-    width: 40%;
+    /*width: 40%;*/
+    width: 508px;
     height: 48px;
     font-size: var(--body-3);
     border-radius: 8px;
@@ -186,6 +203,7 @@ export const Input = styled.input `
     color: var(--neutral-40);
     border: 1px solid var(--neutral-20);
     background-color: white;
+    margin-bottom: 16px;
     
     &:focus {
         color: var(--neutral-80);
