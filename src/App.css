@@ -61,7 +61,7 @@
 /* custom radio and check buttons */
 .form-check-inline {
   /*change spacing between inline buttons*/
-  diplay: inline-block;
+  display: inline-block;
   margin-right: 32px !important;
 }
 .form-check-input:checked[type="radio"] {
