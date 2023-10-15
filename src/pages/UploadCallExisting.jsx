@@ -37,7 +37,7 @@ export default function UploadCallNew() {
       <MiddleButtonsWrapper>
         <GrayButton
           onClick={() => {
-            navigate("/upload-call");
+            navigate("/upload/customer");
           }}
         >
           돌아가기
@@ -66,7 +66,7 @@ export default function UploadCallNew() {
           </Box>
           <BlueButton
             onClick={() => {
-              navigate("/upload-call");
+              navigate("/upload");
             }}
           >
             확인하기

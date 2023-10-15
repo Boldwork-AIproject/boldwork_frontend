@@ -23,6 +23,8 @@
   --neutral-80: #333333;
   --neutral-70: #4d4d4d;
   --neutral-60: #4d4d4d;
+  --neutral-50: #808080;
+  --neutral-40: #999999;
   --neutral-30: #b3b3b3;
   --neutral-20: #cccccc;
   --neutral-10: #e6e6e6;
@@ -112,6 +114,17 @@
 .form-control:focus {
   border-color: var(--primary-100) !important;
   box-shadow: none !important;
+}
+
+/* override form label and text config */
+.form-text {
+  font-size: var(--body-5) !important;
+  color: var(--neutral-40) !important;
+  font-weight: normal !important;
+}
+.form-label {
+  font-size: var(--body-3) !important;
+  font-weight: 500 !important;
 }
 
 

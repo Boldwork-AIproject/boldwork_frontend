@@ -8,7 +8,7 @@ import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import SignupComplete from "./pages/SignupComplete";
 import UploadCallSelect from "./pages/UploadCallSelect";
-import UploadCallNew from "./pages/UploadCallNew";
+import UploadCallExisting from "./pages/UploadCallExisting";
 import UploadCall from "./pages/UploadCall";
 import CheckCall from "./pages/CheckCall";
 import CustomerInfo from "./pages/CustomerInfo";
@@ -28,9 +28,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signup-complete" element={<SignupComplete />} />
-          <Route path="/upload-call">
-            <Route path="select" element={<UploadCallSelect />} />
-            <Route path="new" element={<UploadCallNew />} />
+          <Route path="/upload">
+            <Route path="customer" element={<UploadCallSelect />} />
+            <Route path="customer/existing" element={<UploadCallExisting />} />
             <Route index element={<UploadCall />} />
           </Route>
           <Route path="check">

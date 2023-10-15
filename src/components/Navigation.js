@@ -15,7 +15,7 @@ const Navigation = () => {
             height="31px"
           ></img>
         </Navbar.Brand>
-        <Nav.Link as={Link} to="upload">
+        <Nav.Link as={Link} to="upload/customer">
           AI 상담 분석
         </Nav.Link>
         <Nav.Link as={Link} to="check">

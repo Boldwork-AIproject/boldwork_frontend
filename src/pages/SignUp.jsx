@@ -7,7 +7,7 @@ import { PrevNextContainer, ButtonMediumPrimary, ButtonMediumOutline } from "../
 const SignUp = () => {
     return (
             <Container>
-                <Title>Join</Title>
+                <Title>Sign Up</Title>
                 <Desc>회원가입 하기</Desc>
                 <Form style={{marginTop: "24px"}}>
                     <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formID">
