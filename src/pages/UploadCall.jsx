@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
 import { ButtonMediumOutline, ButtonMediumPrimary, PrevNextContainer } from "../styledComponents";
 import { Form } from "react-bootstrap";
 
 export default function UploadCall() {
+  const navigate = useNavigate();
   return (
     <Container>
       <Title>Upload Call</Title>
@@ -46,7 +48,7 @@ export default function UploadCall() {
     </Form>
     <PrevNextContainer style={{marginTop: "40px"}}>
         <ButtonMediumOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}}>이전으로</ButtonMediumOutline>
-        <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}}>분석하기</ButtonMediumPrimary>
+        <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={() => {navigate("/upload/analysis");}}>분석하기</ButtonMediumPrimary>
     </PrevNextContainer>
     </Container>
   );

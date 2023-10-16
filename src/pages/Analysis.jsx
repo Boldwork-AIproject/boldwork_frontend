@@ -4,6 +4,7 @@ import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import ChatMessagePurple from "../components/ChatMessagePurple";
 import ChatMessageWhite from "../components/ChatMessageWhite";
+import Player from "../components/Player";
 
 const getMessageType = (type) => {
   return type === "consultant" ? "purple" : "white";
@@ -20,7 +21,7 @@ const ChatMessage = ({ content, name, dateTime, avatar, type }) => {
 };
 
 
-export default function CheckCallDetail() {
+export default function Analysis() {
   const { id } = useParams();
   const data = [
     {
@@ -94,7 +95,7 @@ export default function CheckCallDetail() {
               <Nav.Link eventKey="link-2">상담 분석</Nav.Link>
           </Nav.Item>
       </Nav>
-      <div>
+      <div style={{marginBottom: 60}}>
             {data.map((message, index) => (
                 <ChatMessage
                     key={index}
@@ -106,6 +107,7 @@ export default function CheckCallDetail() {
                 />
             ))}
       </div>
+      <Player />
     </Container>
     </>
   );
