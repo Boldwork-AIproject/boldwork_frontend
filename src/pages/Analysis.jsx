@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
@@ -22,6 +22,18 @@ const ChatMessage = ({ content, name, dateTime, avatar, type }) => {
 
 
 export default function Analysis() {
+  const [ selectedNavItem, setSelectedNavItem ] = useState('link-1');
+  const [ selectedNavItem2, setSelectedNavItem2 ] = useState('keyword');
+
+  const handleNavItemClick = (eventKey) => {
+    setSelectedNavItem(eventKey);
+  }
+
+  const handleNavItemClick2 = (eventKey) => {
+    setSelectedNavItem2(eventKey);
+  }
+
+
   const { id } = useParams();
   const data = [
     {
@@ -81,13 +93,14 @@ export default function Analysis() {
       "type": "customer"
     },
   ];
+  
   return (
     <>
     <Container>
       <div>{"CheckCallDetail, id: " + id}</div>
       <Title>AI Calling</Title>
       <Desc>상담 분석</Desc>
-      <Nav variant="underline" defaultActiveKey="link-1" style={{marginTop: "24px"}}>
+      <Nav variant="underline" activeKey={selectedNavItem} onSelect={handleNavItemClick} style={{marginTop: "24px"}}>
           <Nav.Item>
               <Nav.Link eventKey="link-1">상담 내용</Nav.Link>
           </Nav.Item>
@@ -95,6 +108,7 @@ export default function Analysis() {
               <Nav.Link eventKey="link-2">상담 분석</Nav.Link>
           </Nav.Item>
       </Nav>
+      { selectedNavItem === 'link-1' && (
       <div style={{marginBottom: 60}}>
             {data.map((message, index) => (
                 <ChatMessage
@@ -106,8 +120,34 @@ export default function Analysis() {
                     type={message.type}
                 />
             ))}
-      </div>
-      <Player />
+      </div>)}
+      { selectedNavItem === 'link-1' && <Player />}
+      { selectedNavItem === 'link-2' && (
+        <div>
+        <div>2023. 09. 02 16:01</div>
+        <div>권준수 고객님과의 콜상담</div>
+        <div><span>AI 요약</span><span>요약내용은 더 정확하게 편집이 가능합니다.</span></div>
+        <h3>한줄요약</h3>
+        <div>주문한지 10일이 지났으나 배송지연으로 취소됨. 알림톡으로 인증번호 발송 실패 후 SMS 대체발송. 클레임 정도 상 --&gt; 하로 하향시킴. 현재 해결 완료. 조심해야 할 필요성이 보임.</div>
+        </div>
+      )}
+      { selectedNavItem === 'link-2' && <Player />}
+      { selectedNavItem === 'link-2' && (
+          <Nav variant="underline" activeKey={selectedNavItem2} onSelect={handleNavItemClick2} style={{marginTop: "24px"}}>
+              <Nav.Item>
+                  <Nav.Link eventKey="keyword">키워드</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                  <Nav.Link eventKey="index">상담 지수</Nav.Link>
+              </Nav.Item>
+          </Nav>
+      )}
+          { selectedNavItem2 === 'keyword' && (
+            <div>Keyword</div>
+          )}
+          { selectedNavItem2 === 'index' && (
+            <div>Index</div>
+          )}
     </Container>
     </>
   );
