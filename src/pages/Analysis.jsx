@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import ChatMessagePurple from "../components/ChatMessagePurple";
 import ChatMessageWhite from "../components/ChatMessageWhite";
 import Player from "../components/Player";
+import { PrevNextContainer, ButtonLargePrimary, ButtonLargeOutline } from "../styledComponents";
 
 const getMessageType = (type) => {
   return type === "consultant" ? "purple" : "white";
@@ -22,6 +23,18 @@ const ChatMessage = ({ content, name, dateTime, avatar, type }) => {
 
 
 export default function Analysis() {
+  const [ selectedNavItem, setSelectedNavItem ] = useState('link-1');
+  const [ selectedNavItem2, setSelectedNavItem2 ] = useState('keyword');
+
+  const handleNavItemClick = (eventKey) => {
+    setSelectedNavItem(eventKey);
+  }
+
+  const handleNavItemClick2 = (eventKey) => {
+    setSelectedNavItem2(eventKey);
+  }
+
+
   const { id } = useParams();
   const data = [
     {
@@ -81,13 +94,14 @@ export default function Analysis() {
       "type": "customer"
     },
   ];
+  
   return (
     <>
     <Container>
       <div>{"CheckCallDetail, id: " + id}</div>
       <Title>AI Calling</Title>
       <Desc>상담 분석</Desc>
-      <Nav variant="underline" defaultActiveKey="link-1" style={{marginTop: "24px"}}>
+      <Nav variant="underline" activeKey={selectedNavItem} onSelect={handleNavItemClick} style={{marginTop: "24px"}}>
           <Nav.Item>
               <Nav.Link eventKey="link-1">상담 내용</Nav.Link>
           </Nav.Item>
@@ -95,6 +109,7 @@ export default function Analysis() {
               <Nav.Link eventKey="link-2">상담 분석</Nav.Link>
           </Nav.Item>
       </Nav>
+      { selectedNavItem === 'link-1' && (
       <div style={{marginBottom: 60}}>
             {data.map((message, index) => (
                 <ChatMessage
@@ -106,8 +121,56 @@ export default function Analysis() {
                     type={message.type}
                 />
             ))}
-      </div>
-      <Player />
+      </div>)}
+      { selectedNavItem === 'link-1' && <Player />}
+      { selectedNavItem === 'link-2' && (
+        
+          <div class="customer-consultation-info" style={{display: "flex", flexDirection: "column", maxWidth: 1040, marginBottom: 61}}>
+            <div class="customer-info" style={{marginTop: 40, marginBottom: 61}}>
+              <div style={{fontSize: "var(--body-4)", color: "#666666"}}>2023. 09. 02 16:01</div>
+              <h2 style={{marginTop: 8, fontWeight: "bold"}}>
+                <span style={{color: "var(--primary-100)"}}>권준수</span>
+                <span style={{marginLeft: 8}}>고객님과의 콜상담</span>
+              </h2>
+              <div>
+                <span style={{marginTop: 24, fontWeight: "bold"}}>AI 요약</span>
+                <span style={{marginLeft: 14}}>요약내용은 더 정확하게 편집이 가능합니다.</span>
+              </div>
+            </div>
+            <div style={{marginBottom: "-40px"}}><Player /></div>
+            <h3 style={{fontWeight: "bold", marginBottom: 15}}>한줄 요약</h3>
+            <div style={Summary}>주문한지 10일이 지났으나 배송지연으로 취소됨. 알림톡으로 인증번호 발송 실패 후 SMS 대체발송. 클레임 정도 상 --&gt; 하로 하향시킴. 현재 해결 완료. 조심해야 할 필요성이 보임.</div>
+          </div>
+      )}
+      
+      { selectedNavItem === 'link-2' && (
+          <Nav variant="underline" activeKey={selectedNavItem2} onSelect={handleNavItemClick2} style={{marginTop: "24px"}}>
+              <Nav.Item>
+                  <Nav.Link eventKey="keyword">키워드</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                  <Nav.Link eventKey="index">상담 지수</Nav.Link>
+              </Nav.Item>
+          </Nav>
+      )}
+          { selectedNavItem === 'link-2' && selectedNavItem2 === 'keyword' && (
+            <div style={BlockContainer}>
+              <div style={Block}><div>Keyword</div></div>
+              <div style={Block}><div>Keyword Ranking</div></div>
+            </div>
+          )}
+          { selectedNavItem === 'link-2' && selectedNavItem2 === 'index' && (
+            <div style={BlockContainer}>
+              <div style={Block}><div>Index</div></div>
+              <div style={Block}><div>Plot Graph</div></div>
+            </div>
+          )}
+          { selectedNavItem === 'link-2' && (
+            <PrevNextContainer style={{marginBottom: "110px"}}>
+              <ButtonLargeOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}}>이전으로</ButtonLargeOutline>
+              <ButtonLargePrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}}>다른 상담 확인하기</ButtonLargePrimary>
+            </PrevNextContainer>
+          )}
     </Container>
     </>
   );
@@ -150,3 +213,32 @@ const Desc = styled.p`
   line-height: 18px; /* 128.571% */
   letter-spacing: -0.42px;
 `;
+const BlockContainer = {
+  display: "flex", 
+  flexDirection: "row", 
+  justifyContent: "space-evenly", 
+  alignItems: "center", 
+  backgroundColor: "white", 
+  border: "1px solid var(--neutral-20)", 
+  width: 1039, 
+  height: 667, 
+  borderBottomLeftRadius: 8, 
+  borderBottomRightRadius: 8, 
+  marginBottom: 108
+}
+const Block = {
+  backgroundColor: "white", 
+  border: "1px solid var(--neutral-20)", 
+  width: 475, 
+  height: 582, 
+  borderRadius: 8
+}
+const Summary = {
+  backgroundColor: "var(--neutral-80)", 
+  color: "white", 
+  paddingLeft: 80, 
+  paddingRight: 80, 
+  paddingTop: 40, 
+  paddingBottom: 40, 
+  borderRadius: 8 
+}
