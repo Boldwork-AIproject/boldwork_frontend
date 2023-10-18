@@ -33,7 +33,7 @@ function App() {
           <Route exact path="/" element={<Main />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/signup-complete" element={<SignupComplete />} />
+            <Route path="complete" element={<SignupComplete />} />
           <Route path="/upload">
             <Route path="customer" element={<UploadCallSelect />} />
             <Route path="customer/existing" element={<UploadCallExisting />} />

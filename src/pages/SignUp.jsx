@@ -3,8 +3,10 @@ import "../App.css";
 import { Form } from 'react-bootstrap';
 import styled from "styled-components";
 import { PrevNextContainer, ButtonMediumPrimary, ButtonMediumOutline } from "../styledComponents";
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+    const navigate = useNavigate();
     return (
             <Container>
                 <Title>Sign Up</Title>
@@ -41,7 +43,7 @@ const SignUp = () => {
                 </Form>
                 <PrevNextContainer style={{marginTop: "40px"}}>
                     <ButtonMediumOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}}>이전으로</ButtonMediumOutline>
-                    <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}}>가입하기</ButtonMediumPrimary>
+                    <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={() => {navigate('/complete');}}>가입하기</ButtonMediumPrimary>
                 </PrevNextContainer>
             </Container>
     );

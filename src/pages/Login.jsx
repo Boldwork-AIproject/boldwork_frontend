@@ -14,8 +14,8 @@ const Login = ({ onLogin }) => {
     <>
       <Container id="login" style={loginContainer}>
         <Container id="text" style={textContainer}>
-          <h1 style={{fontWeight:"bold"}}>환영합니다!</h1>
-          <h1 style={{fontWeight:"bold"}}>
+          <h1>환영합니다!</h1>
+          <h1>
             <span style={{color:"var(--primary-100)"}}>로그인</span>을 부탁드려요!
           </h1>
         </Container>
