@@ -12,7 +12,7 @@ export default function CustomerInfo() {
   const pages = [1, 2, 3, 4];
   const [selectedPage, setSelectedPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
-  const data = [
+  const [data, setData] = useState([
     {
       id: 0,
       name: "김상호",
@@ -33,7 +33,10 @@ export default function CustomerInfo() {
       name: "권준수",
       phone: "010-2904-4985",
     },
-  ];
+  ]);
+  const handleDelete = (idToDelete) => {
+    setData(data.filter((item) => item.id !== idToDelete));   
+  };
   return (
     <Container>
       {showModal ? (
@@ -63,7 +66,7 @@ export default function CustomerInfo() {
           <CustomerInfoBox
             name={el.name}
             phone={el.phone}
-            onDelete={() => {}}
+            onDelete={() => {handleDelete(el.id)}}
             onDetail={() => {
               navigate(`/info/${el.id}`);
             }}
