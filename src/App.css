@@ -209,7 +209,7 @@ nav {
     ),
     url("/public/bold/main_bg.png");
   width: 100%;
-  height: 100vh;
+  max-height: calc(100vh - 80px);
   background-size: cover;
 }
 #main_button {
