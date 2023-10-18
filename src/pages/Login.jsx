@@ -2,9 +2,14 @@ import React from "react";
 import "../App.css";
 import { Container, Form } from "react-bootstrap";
 import { ButtonBlockPrimary, KakaoLabelIcon, NaverLabelIcon } from "../styledComponents"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
+  const navigate = useNavigate();
+  const handleLoginClick = () => {
+    onLogin();
+    navigate("/");
+  };
   return (
     <>
       <Container id="login" style={loginContainer}>
@@ -22,7 +27,7 @@ const Login = () => {
           <Form.Group style={{width: "508px"}} controlId="formPass">
               <Form.Control style={{height: "48px"}} type="password" placeholder="비밀번호를 입력해주세요." />
           </Form.Group>
-          <ButtonBlockPrimary style={{marginTop: "32px"}}>로그인</ButtonBlockPrimary>
+          <ButtonBlockPrimary style={{marginTop: "32px"}} onClick={handleLoginClick}>로그인</ButtonBlockPrimary>
         </Container>
 
         <p style={{fontSize:"var(--body-4)", marginTop:"24px"}}>

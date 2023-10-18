@@ -18,9 +18,7 @@ const Main = () => {
         </p>
         <Container id="main_button">
           <ButtonLargePrimary>상담 업로드하기</ButtonLargePrimary>
-          <Link to="/test_components" className="ms-5">
-            Components 확인
-          </Link>
+          {/*<Link to="/test_components" className="ms-5">Components 확인</Link>*/}
         </Container>
       </Container>
       <div id="main_bg"></div>
