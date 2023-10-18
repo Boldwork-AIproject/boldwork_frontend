@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ChatMessagePurple from "../components/ChatMessagePurple";
 import ChatMessageWhite from "../components/ChatMessageWhite";
 import Player from "../components/Player";
@@ -23,6 +23,8 @@ const ChatMessage = ({ content, name, dateTime, avatar, type }) => {
 
 
 export default function Analysis() {
+  const navigate = useNavigate();
+
   const [ selectedNavItem, setSelectedNavItem ] = useState('link-1');
   const [ selectedNavItem2, setSelectedNavItem2 ] = useState('keyword');
 
@@ -160,17 +162,21 @@ export default function Analysis() {
             </div>
           )}
           { selectedNavItem === 'link-2' && selectedNavItem2 === 'index' && (
-            <div style={BlockContainer}>
-              <div style={Block}><div>Index</div></div>
-              <div style={Block}><div>Plot Graph</div></div>
+            <div style={BlockContainer2}>
+              <div>
+                <div style={BlockLabel}>감정 지표</div>
+                <div style={Block2}>Index</div>
+              </div>
+              <div>
+                <div style={BlockLabel}>상담 만족도 그래프</div>
+                <div style={Block2}>Plot Graph</div>
+              </div>
             </div>
           )}
-          { selectedNavItem === 'link-2' && (
-            <PrevNextContainer style={{marginBottom: "110px"}}>
-              <ButtonLargeOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}}>이전으로</ButtonLargeOutline>
-              <ButtonLargePrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}}>다른 상담 확인하기</ButtonLargePrimary>
-            </PrevNextContainer>
-          )}
+          <PrevNextContainer style={{marginBottom: "110px"}}>
+            <ButtonLargeOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}}>이전으로</ButtonLargeOutline>
+            <ButtonLargePrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={() => {navigate('/check')}}>다른 상담 확인하기</ButtonLargePrimary>
+          </PrevNextContainer>
     </Container>
     </>
   );
@@ -213,6 +219,11 @@ const Desc = styled.p`
   line-height: 18px; /* 128.571% */
   letter-spacing: -0.42px;
 `;
+const BlockLabel = {
+  fontWeight: "bold",
+  fontSize: "var(--body-3)",
+  marginBottom: 11
+}
 const BlockContainer = {
   display: "flex", 
   flexDirection: "row", 
@@ -224,14 +235,41 @@ const BlockContainer = {
   height: 667, 
   borderBottomLeftRadius: 8, 
   borderBottomRightRadius: 8, 
-  marginBottom: 108
+  marginBottom: 108,
+}
+const BlockContainer2 = {
+  display: "flex", 
+  flexDirection: "row", 
+  justifyContent: "space-evenly", 
+  alignItems: "flex-end", 
+  backgroundColor: "white", 
+  border: "1px solid var(--neutral-20)", 
+  width: 1039, 
+  height: 667, 
+  borderBottomLeftRadius: 8, 
+  borderBottomRightRadius: 8, 
+  marginBottom: 108,
 }
 const Block = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   backgroundColor: "white", 
   border: "1px solid var(--neutral-20)", 
   width: 475, 
   height: 582, 
   borderRadius: 8
+}
+const Block2 = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "white", 
+  border: "1px solid var(--neutral-20)", 
+  width: 475, 
+  height: 516, 
+  borderRadius: 8,
+  marginBottom: 39,
 }
 const Summary = {
   backgroundColor: "var(--neutral-80)", 
