@@ -15,6 +15,7 @@ import CustomerInfo from "./pages/CustomerInfo";
 import CustomerInfoDetail from "./pages/CustomerInfoDetail";
 import MyPage from "./pages/MyPage";
 import Analysis from "./pages/Analysis";
+import Loading from "./pages/Loading";
 //import TestComponents from "./styledTest.js";
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Route path="customer/existing" element={<UploadCallExisting />} />
             <Route index element={<UploadCall />} />
             <Route path="analysis" element={<Analysis />} />
+            <Route path="loading" element={<Loading />} />
           </Route>
           <Route path="check">
             <Route index element={<CheckCall />} />

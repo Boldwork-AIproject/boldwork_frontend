@@ -9,7 +9,7 @@ export default function Loading() {
 아래 주석처리된 부분은 추후 분석페이지 개발 완료시 연결
 setTimeout을 이용해 몇 초 머물렀다가 페이지 전환할 수 있음
 */
-/*  const navigate = useNavigate();
+const navigate = useNavigate();
   useEffect(()=>{
     const timer = setTimeout(()=> {
         navigate("/check")
@@ -17,7 +17,7 @@ setTimeout을 이용해 몇 초 머물렀다가 페이지 전환할 수 있음
 
     return()=> clearTimeout(timer);
   }, [navigate]);
-*/
+
   return (
     <Container>
       <Image src={image} />
