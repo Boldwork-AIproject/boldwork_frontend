@@ -30,7 +30,7 @@ const Navigation = ({ isLoggedIn, onLogout }) => {
             마이페이지
           </Nav.Link>
           <Nav.Link>|</Nav.Link>
-          <Nav.Link onClick={onLogout}>
+          <Nav.Link onClick={onLogout} as={Link} to="/">
             로그아웃
           </Nav.Link>
         </>

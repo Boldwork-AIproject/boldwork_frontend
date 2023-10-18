@@ -48,7 +48,7 @@ export default function UploadCall() {
     </Form>
     <PrevNextContainer style={{marginTop: "40px"}}>
         <ButtonMediumOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}}>이전으로</ButtonMediumOutline>
-        <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={() => {navigate("/upload/analysis");}}>분석하기</ButtonMediumPrimary>
+        <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={() => {navigate("/upload/loading");}}>분석하기</ButtonMediumPrimary>
     </PrevNextContainer>
     </Container>
   );

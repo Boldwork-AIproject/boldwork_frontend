@@ -4,9 +4,11 @@ import closeImg from "../assets/close.svg";
 import searchImg from "../assets/search.svg";
 import styled from "styled-components";
 
-export default function FilterModal({ close, saveAndClose }) {
+export default function FilterModalLong({ close, saveAndClose }) {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState(0);
+  const [selectedDateOrder, setSelectedDateOrder] = useState(0);
+  const [selectedNameOrder, setSelectedNameOrder] = useState(0);
+  const [selectedConsultTopic, setSelectedConsultTopic] = useState(0);
   const [input, setInput] = useState("");
   return (
     <Bg>
@@ -14,41 +16,148 @@ export default function FilterModal({ close, saveAndClose }) {
         <Close src={closeImg} onClick={close} />
         <Title>필터</Title>
         <Content>
-          <Text>이름</Text>
+        <Text>날짜</Text>
           <SelectButtonsWrapper>
-            {selected === 0 ? (
+            {selectedDateOrder === 0 ? (
               <ButtonSelected>전체</ButtonSelected>
             ) : (
               <ButtonUnselected
                 onClick={() => {
-                  setSelected(0);
+                  setSelectedDateOrder(0);
                 }}
               >
                 전체
               </ButtonUnselected>
             )}
-            {selected === 1 ? (
+            {selectedDateOrder === 1 ? (
               <ButtonSelected>오름차순</ButtonSelected>
             ) : (
               <ButtonUnselected
                 onClick={() => {
-                  setSelected(1);
+                  setSelectedDateOrder(1);
                 }}
               >
                 오름차순
               </ButtonUnselected>
             )}
-            {selected === 2 ? (
+            {selectedDateOrder === 2 ? (
               <ButtonSelected>내림차순</ButtonSelected>
             ) : (
               <ButtonUnselected
                 onClick={() => {
-                  setSelected(2);
+                  setSelectedDateOrder(2);
                 }}
               >
                 내림차순
               </ButtonUnselected>
             )}
+          </SelectButtonsWrapper>
+          <Text>이름</Text>
+          <SelectButtonsWrapper>
+            {selectedNameOrder === 0 ? (
+              <ButtonSelected>전체</ButtonSelected>
+            ) : (
+              <ButtonUnselected
+                onClick={() => {
+                  setSelectedNameOrder(0);
+                }}
+              >
+                전체
+              </ButtonUnselected>
+            )}
+            {selectedNameOrder === 1 ? (
+              <ButtonSelected>오름차순</ButtonSelected>
+            ) : (
+              <ButtonUnselected
+                onClick={() => {
+                  setSelectedNameOrder(1);
+                }}
+              >
+                오름차순
+              </ButtonUnselected>
+            )}
+            {selectedNameOrder === 2 ? (
+              <ButtonSelected>내림차순</ButtonSelected>
+            ) : (
+              <ButtonUnselected
+                onClick={() => {
+                  setSelectedNameOrder(2);
+                }}
+              >
+                내림차순
+              </ButtonUnselected>
+            )}
+          </SelectButtonsWrapper>
+          <Text>상담내용</Text>
+          <SelectButtonsWrapper>
+            <Grid>
+            {selectedConsultTopic === 0 ? (
+              <ButtonSelected>전체</ButtonSelected>
+            ) : (
+              <ButtonUnselected
+                onClick={() => {
+                  setSelectedConsultTopic(0);
+                }}
+              >
+                전체
+              </ButtonUnselected>
+            )}
+            {selectedConsultTopic === 1 ? (
+              <ButtonSelected>배송위치</ButtonSelected>
+            ) : (
+              <ButtonUnselected
+                onClick={() => {
+                  setSelectedConsultTopic(1);
+                }}
+              >
+                배송위치
+              </ButtonUnselected>
+            )}
+            {selectedConsultTopic === 2 ? (
+              <ButtonSelected>환불문의</ButtonSelected>
+            ) : (
+              <ButtonUnselected
+                onClick={() => {
+                  setSelectedConsultTopic(2);
+                }}
+              >
+                환불문의
+              </ButtonUnselected>
+            )}
+            {selectedConsultTopic === 3 ? (
+              <ButtonSelected>반품문의</ButtonSelected>
+            ) : (
+              <ButtonUnselected
+                onClick={() => {
+                  setSelectedConsultTopic(3);
+                }}
+              >
+                반품문의
+              </ButtonUnselected>
+            )}
+            {selectedConsultTopic === 4 ? (
+              <ButtonSelected>교환문의</ButtonSelected>
+            ) : (
+              <ButtonUnselected
+                onClick={() => {
+                  setSelectedConsultTopic(4);
+                }}
+              >
+                교환문의
+              </ButtonUnselected>
+            )}
+            {selectedConsultTopic === 5 ? (
+              <ButtonSelected>배송지연</ButtonSelected>
+            ) : (
+              <ButtonUnselected
+                onClick={() => {
+                  setSelectedConsultTopic(5);
+                }}
+              >
+                배송지연
+              </ButtonUnselected>
+            )}
+            </Grid>
           </SelectButtonsWrapper>
         </Content>
         <Content>
@@ -61,7 +170,9 @@ export default function FilterModal({ close, saveAndClose }) {
         <ButtonsWrapper>
           <Button1
             onClick={() => {
-              setSelected(0);
+              setSelectedDateOrder(0);
+              setSelectedNameOrder(0);
+              setSelectedConsultTopic(0);
               setInput("");
             }}
           >
@@ -87,7 +198,7 @@ const Bg = styled.div`
 const Modal = styled.div`
   z-index: 10001;
   width: 318px;
-  height: 363px;
+  height: 526px;
   flex-shrink: 0;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -121,7 +232,7 @@ const ButtonsWrapper = styled.div`
   align-items: center;
   gap: 8px;
   margin-left: 35px;
-  margin-top: 54px;
+  margin-top: 36px;
 `;
 const Button1 = styled.button`
   border: none;
@@ -202,6 +313,9 @@ const SelectButtonsWrapper = styled.div`
   display: flex;
   gap: 8px;
   margin-top: 8px;
+
+  &:nth-child(2), &:nth-child(4) {
+    margin-bottom: 24px;
 `;
 const ButtonSelected = styled.button`
   border: 0;
@@ -271,4 +385,9 @@ const Search = styled.img`
   width: 18px;
   height: 18px;
   margin-right: 9px;
+`;
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 `;
