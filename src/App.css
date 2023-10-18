@@ -49,6 +49,11 @@
   --naver: url(/public/social/naver_logo.png);
 }
 
+/* HEADINGS */
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+}
+
 /* BOOTSTRAP CONFIG */
 /* custom large buttons
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
