@@ -15,8 +15,7 @@ import CustomerInfo from "./pages/CustomerInfo";
 import CustomerInfoDetail from "./pages/CustomerInfoDetail";
 import MyPage from "./pages/MyPage";
 import Analysis from "./pages/Analysis";
-
-import TestComponents from "./styledTest.js";
+//import TestComponents from "./styledTest.js";
 
 function App() {
   return (
@@ -43,7 +42,7 @@ function App() {
             <Route path=":id" element={<CustomerInfoDetail />} />
           </Route>
           <Route path="mypage" element={<MyPage />} />
-          <Route path="/test_components" element={<TestComponents />} />
+          {/*<Route path="/test_components" element={<TestComponents />} />*/}
         </Routes>
       </BrowserRouter>
     </>
