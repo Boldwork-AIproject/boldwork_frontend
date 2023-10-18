@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -18,13 +18,20 @@ import Analysis from "./pages/Analysis";
 //import TestComponents from "./styledTest.js";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
   return (
     <>
       <BrowserRouter>
-        <Navigation />
+        <Navigation isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         <Routes>
           <Route exact path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signup-complete" element={<SignupComplete />} />
           <Route path="/upload">
