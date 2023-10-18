@@ -9,8 +9,9 @@ import CheckCallBox from "../components/CheckCallBox";
 export default function CheckCall() {
   const navigate = useNavigate();
   const pages = [1, 2, 3, 4];
+  
   const [selectedPage, setSelectedPage] = useState(1);
-  const data = [
+  const [data, setData] = useState([
     {
       id: 0,
       name: "권준수",
@@ -53,7 +54,10 @@ export default function CheckCall() {
       time: "2023. 09. 02 16:09",
       categories: ["반품문의", "배송지연"],
     },
-  ];
+  ]);
+  const handleDelete = (idToDelete) => {
+    setData(data.filter((item) => item.id !== idToDelete));   
+  };
   return (
     <Container>
       <Title>Check Call</Title>
@@ -71,7 +75,7 @@ export default function CheckCall() {
             phone={el.phone}
             time={el.time}
             categories={el.categories}
-            onDelete={() => {}}
+            onDelete={() => {handleDelete(el.id)}}
             onDetail={() => {
               navigate(`/check/${el.id}`);
             }}
