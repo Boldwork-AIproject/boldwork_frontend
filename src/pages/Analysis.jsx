@@ -174,7 +174,12 @@ export default function Analysis() {
             </div>
           )}
           <PrevNextContainer style={{marginBottom: "110px"}}>
-            <ButtonLargeOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}} onClick={() => {navigate(-1)}}>이전으로</ButtonLargeOutline>
+            { selectedNavItem === 'link-1' && (
+              <ButtonLargeOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}} onClick={() => {navigate(-1)}}>이전으로</ButtonLargeOutline>
+            )}
+            { selectedNavItem === 'link-2' && (
+              <ButtonLargeOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}} onClick={() => {setSelectedNavItem('link-1')}}>이전으로</ButtonLargeOutline>
+            )}
             <ButtonLargePrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={() => {navigate('/check')}}>다른 상담 확인하기</ButtonLargePrimary>
           </PrevNextContainer>
     </Container>
