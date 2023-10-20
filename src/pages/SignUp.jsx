@@ -42,7 +42,7 @@ const SignUp = () => {
                     </Form.Group>
                 </Form>
                 <PrevNextContainer style={{marginTop: "40px"}}>
-                    <ButtonMediumOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}}>이전으로</ButtonMediumOutline>
+                    <ButtonMediumOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}} onClick={() => {navigate(-1)}}>이전으로</ButtonMediumOutline>
                     <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={() => {navigate('/complete');}}>가입하기</ButtonMediumPrimary>
                 </PrevNextContainer>
             </Container>
