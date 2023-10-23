@@ -3,7 +3,7 @@ import "../App.css";
 import "../Main.css";
 import { ButtonLargePrimary } from "../styledComponents.js";
 import { Container } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -18,12 +18,8 @@ const Main = () => {
           똑똑한 AI와 함께, 편리한 콜상담을 경험해보세요.
         </p>
         <Container id="main_button">
-          <ButtonLargePrimary onClick={() => {
-          navigate("/upload-call/select");
-        }}>상담 업로드하기</ButtonLargePrimary>
-          <Link to="/test_components" className="ms-5">
-            Components 확인
-          </Link>
+          <ButtonLargePrimary onClick={() => {navigate('/upload/customer')}}>상담 업로드하기</ButtonLargePrimary>
+          {/*<Link to="/test_components" className="ms-5">Components 확인</Link>*/}
         </Container>
       </Container>
       <div id="main_bg"></div>

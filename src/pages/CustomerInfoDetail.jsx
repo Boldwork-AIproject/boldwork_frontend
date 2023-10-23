@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import InputWithLabel from "../components/InputWithLabel";
-import RadiosWithLabel from "../components/RadiosWithLabel";
+import RadioWithLabel from "../components/RadioWithLabel";
 import TextareaWithLabel from "../components/TextareaWithLabel";
 
 export default function CustomerInfoDetail() {
@@ -48,7 +48,7 @@ export default function CustomerInfoDetail() {
           text="이메일주소"
           placeholder="이메일을 입력해주세요."
         />
-        <RadiosWithLabel value={gender} setValue={setGender} text="성별" star />
+        <RadioWithLabel text="성별" value={gender} setValue={setGender}  star />
         <TextareaWithLabel
           value={memo}
           setValue={setMemo}

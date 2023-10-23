@@ -5,12 +5,16 @@ import filterImg from "../assets/filter.svg";
 import arrowLeft from "../assets/arrow-left.svg";
 import arrowRight from "../assets/arrow-right.svg";
 import CheckCallBox from "../components/CheckCallBox";
+import FilterModalLong from "../components/FilterModalLong";
 
 export default function CheckCall() {
   const navigate = useNavigate();
   const pages = [1, 2, 3, 4];
+  
   const [selectedPage, setSelectedPage] = useState(1);
-  const data = [
+  const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState([
+
     {
       id: 0,
       name: "권준수",
@@ -53,13 +57,30 @@ export default function CheckCall() {
       time: "2023. 09. 02 16:09",
       categories: ["반품문의", "배송지연"],
     },
-  ];
+  ]);
+  const handleDelete = (idToDelete) => {
+    setData(data.filter((item) => item.id !== idToDelete));   
+  };
   return (
     <Container>
+      {showModal ? (
+        <FilterModalLong
+          close={() => {
+            setShowModal(false);
+          }}
+          saveAndClose={() => {
+            setShowModal(false);
+          }}
+        />
+      ) : null}
       <Title>Check Call</Title>
       <Desc>지난 상담 확인</Desc>
       <FilterWrapper>
-        <Filter>
+        <Filter
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
           <FilterImage src={filterImg} />
           <FilterText>전체</FilterText>
         </Filter>
@@ -71,7 +92,7 @@ export default function CheckCall() {
             phone={el.phone}
             time={el.time}
             categories={el.categories}
-            onDelete={() => {}}
+            onDelete={() => {handleDelete(el.id)}}
             onDetail={() => {
               navigate(`/check/${el.id}`);
             }}

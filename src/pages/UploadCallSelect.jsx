@@ -11,7 +11,7 @@ export default function UploadCallSelect() {
       <ButtonsWrapper>
         <Button
           onClick={() => {
-            navigate("/upload-call/new");
+            navigate("/upload");
           }}
         >
           <ButtonTitle>
@@ -25,7 +25,7 @@ export default function UploadCallSelect() {
         </Button>
         <Button
           onClick={() => {
-            navigate("/upload-call");
+            navigate("/upload/customer/existing");
           }}
         >
           <ButtonTitle>
