@@ -40,7 +40,7 @@ const Login = ({ onLogin }) => {
         <Container id="social_login" style={socialLoginContainer}>
           <Link to="/kakao-login" style={{textDecoration: "none", color:"inherit"}}>
           <Container id="kakao_login" style={logoContainer}>
-            <KakaoLabelIcon style={{}} />
+            <KakaoLabelIcon />
             <p style={{fontSize:"var(--body-4)", marginTop:"8px"}}>카카오톡으로 시작</p>
           </Container>
           </Link>
