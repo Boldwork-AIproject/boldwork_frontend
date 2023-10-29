@@ -69,7 +69,7 @@ export default function CustomerInfoDetail() {
         >
           초기화
         </Button1>
-        <Button2 onClick={() => {}}>확인하기</Button2>
+        <Button2 onClick={() => {}}>저장하기</Button2>
       </ButtonsWrapper>
     </Container>
   );
