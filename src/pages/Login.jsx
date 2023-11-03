@@ -1,4 +1,5 @@
-import React from "react";
+import axios from '../axios.js';
+import React, { useState } from "react";
 import "../App.css";
 import { Container, Form } from "react-bootstrap";
 import { ButtonBlockPrimary, KakaoLabelIcon, NaverLabelIcon } from "../styledComponents"
@@ -6,10 +7,30 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
-  const handleLoginClick = () => {
-    onLogin();
-    navigate("/");
+
+  const [loginData, setLoginData] = useState({
+      username: '',
+      password: '',
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((loginData) => ({ ...loginData, [name]: value }));
   };
+
+  const handleLogin = async (e) => {
+    console.log('Login Data:', loginData);
+    onLogin();
+    try {
+      const response = await axios.post('/login', loginData);
+      console.log('Response from server:', response.data);
+      /*navigate("/");*/
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    
+  };
+  
   return (
     <>
       <Container id="login" style={loginContainer}>
@@ -22,12 +43,12 @@ const Login = ({ onLogin }) => {
 
         <Container id="input_boxes" style={inputContainer}>
           <Form.Group style={{marginBottom: "16px", width: "508px"}} controlId="formEmail">
-              <Form.Control style={{height: "48px"}} type="email" placeholder="이메일을 입력해주세요." />
+              <Form.Control style={{height: "48px"}} name="username" value={loginData.username} onChange={handleChange} type="email" placeholder="이메일을 입력해주세요." />
           </Form.Group>
           <Form.Group style={{width: "508px"}} controlId="formPass">
-              <Form.Control style={{height: "48px"}} type="password" placeholder="비밀번호를 입력해주세요." />
+              <Form.Control style={{height: "48px"}} name="password" value={loginData.password} onChange={handleChange} type="password" placeholder="비밀번호를 입력해주세요." />
           </Form.Group>
-          <ButtonBlockPrimary style={{marginTop: "32px"}} onClick={handleLoginClick}>로그인</ButtonBlockPrimary>
+          <ButtonBlockPrimary style={{marginTop: "32px"}} onClick={handleLogin}>로그인</ButtonBlockPrimary>
         </Container>
 
         <p style={{fontSize:"var(--body-4)", marginTop:"24px"}}>

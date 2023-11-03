@@ -1,53 +1,189 @@
-import React from "react";
+import axios from '../axios.js';
+import React, { useState } from "react";
 import "../App.css";
 import { Form } from 'react-bootstrap';
 import styled from "styled-components";
-import { PrevNextContainer, ButtonMediumPrimary, ButtonMediumOutline } from "../styledComponents";
+import { PrevNextContainer, ButtonMediumPrimary, ButtonMediumOutline, ButtonSmallOutline } from "../styledComponents";
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const navigate = useNavigate();
+
+    const [signUpData, setSignUpData] = useState({
+        email: '',
+        password: '',
+        passwordMatch: '',
+        name: '',
+        phone: '',
+        birthday: ''
+    });
+    
+    const [sentVerification, setSentVerification] = useState(false);
+    const [email, setEmail] = useState('');
+    const [code, setCode] = useState('');
+
+    // axios post request for sending email verification
+    const sendVerificationCode = (email) => {
+      const requestVerificationUrl = '/signup/request-verification';
+      const request = axios.post(requestVerificationUrl, { email });
+      return request;
+    }
+
+    // axios post request for verifying if code is correct
+    const verifyCode = (email, code) => {
+      const verifyUrl = '/signup/verify';
+      const request = axios.post(verifyUrl, { email, code });
+      return request;
+    };
+
+    // verify email by sending code
+    const handleEmailVerify = () => {
+      sendVerificationCode(email)
+      .then((response) => {
+        console.log('Verification code sent successfully:', response.data);
+        setSentVerification(true);
+      })
+      .catch((error) => {
+        console.error('Error sending verification code:', error);
+      });
+    }
+
+    // verify if code is correct
+    const handleVerifyCode = () => {
+      verifyCode(email, code)
+        .then((response) => {
+          console.log('Code verification successful:', response.data);
+        })
+        .catch((error) => {
+          console.error('Code verification failed:', error);
+        });
+      console.log(email);
+      console.log(code);
+    };
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+
+      setSignUpData((signUpData) => ({ ...signUpData, [name]: value }));
+
+      // for email verification
+      if (name === 'email') {
+        setEmail(value);
+      } else if (name === 'code') {
+        setCode(value);
+      }
+    };
+    
+    const handleSignUp = async (e) => {
+      e.preventDefault();
+      console.log('Sign Up Data:', signUpData);
+
+      try {
+        const response = await axios.post('/signup', signUpData);
+        console.log('Response from server:', response.data);
+        //navigate('/complete');
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
     return (
             <Container>
                 <Title>Sign Up</Title>
                 <Desc>회원가입 하기</Desc>
                 <Form style={{marginTop: "24px"}}>
-                    <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formID">
-                        <Form.Label>아이디</Form.Label>
-                        <Form.Control style={{height: "48px"}} placeholder="아이디를 입력해주세요 (영문,숫자 포함 8~20자)" />
-                    </Form.Group>
-                    <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formPass">
-                        <Form.Label>비밀번호</Form.Label>
-                        <Form.Control style={{height: "48px"}} type="password" placeholder="비밀번호를 입력해주세요. (영문,숫자,특수문자 포함 8~20자)" />
-                    </Form.Group>
-                    <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formPassCheck">
-                        <Form.Label>비밀번호 확인</Form.Label>
-                        <Form.Control style={{height: "48px"}} type="password" placeholder="비밀번호를 재입력해주세요." />
-                    </Form.Group>
-                    <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formName">
-                        <Form.Label>이름</Form.Label>
-                        <Form.Control style={{height: "48px"}} placeholder="이름을 입력해주세요." />
-                    </Form.Group>
-                    <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formPhone">
-                        <Form.Label>휴대전화</Form.Label>
-                        <Form.Control style={{height: "48px"}} placeholder="휴대폰번호를 입력해주세요.(‘-’ 제외 1자리 입력)" />
-                    </Form.Group>
-                    <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formBirthday">
-                        <Form.Label>생년월일</Form.Label>
-                        <Form.Control style={{height: "48px"}} placeholder="생년월일 6자리를 입력해주세요.(예: 970503)" />
-                    </Form.Group>
-                    <Form.Group style={{width: "508px"}} controlId="formEmail">
-                        <Form.Label>이메일</Form.Label>
-                        <Form.Control style={{height: "48px"}} type="email" placeholder="이메일 주소를 입력해주세요." />
-                    </Form.Group>
+
+                <CustomFormGroup
+                  label="이메일"
+                  name="email"
+                  value={signUpData.email}
+                  onChange={handleChange}
+                  type="email"
+                  placeholder="이메일 주소를 입력해주세요."
+                />
+
+                <EmailVerifFormGroup
+                  name="code"
+                  onChange={handleChange}
+                  placeholder="인증 코드를 입력해주세요"
+                  handleEmailVerify={handleEmailVerify}
+                  sentVerification={sentVerification}
+                  handleVerifyCode={handleVerifyCode}
+                />
+
+                <CustomFormGroup
+                  label="비밀번호"
+                  name="password"
+                  value={signUpData.password}
+                  onChange={handleChange}
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요. (영문,숫자,특수문자 포함 8~20자)"
+                />
+
+                <CustomFormGroup
+                  label="비밀번호 확인"
+                  name="passwordMatch"
+                  value={signUpData.passwordMatch}
+                  onChange={handleChange}
+                  type="password"
+                  placeholder="비밀번호를 재입력해주세요."
+                />
+
+                <CustomFormGroup
+                  label="이름"
+                  name="name"
+                  value={signUpData.name}
+                  onChange={handleChange}
+                  placeholder="이름을 입력해주세요."
+                />
+
+                <CustomFormGroup
+                  label="휴대전화"
+                  name="phone"
+                  value={signUpData.phone}
+                  onChange={handleChange}
+                  placeholder="휴대폰번호를 입력해주세요.(‘-’ 제외 1자리 입력)"
+                />
+
+                <CustomFormGroup
+                  label="생년월일"
+                  name="birthday"
+                  value={signUpData.birthday}
+                  onChange={handleChange}
+                  placeholder="생년월일 6자리를 입력해주세요.(예: 970503)"
+                />
+
                 </Form>
-                <PrevNextContainer style={{marginTop: "40px"}}>
+                <PrevNextContainer>
                     <ButtonMediumOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}} onClick={() => {navigate(-1)}}>이전으로</ButtonMediumOutline>
-                    <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={() => {navigate('/complete');}}>가입하기</ButtonMediumPrimary>
+                    <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={handleSignUp}>가입하기</ButtonMediumPrimary>
                 </PrevNextContainer>
             </Container>
     );
 }
+const CustomFormGroup = ({ label, name, value, onChange, type, placeholder }) => {
+  return (
+    <Form.Group style={{ marginBottom: '32px', width: '508px' }} controlId={name}>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control style={{ height: '48px' }} name={name} value={value} onChange={onChange} type={type} placeholder={placeholder} />
+    </Form.Group>
+  );
+}
+const EmailVerifFormGroup = ({ name, onChange, placeholder, handleEmailVerify, sentVerification, handleVerifyCode }) => {
+  return (
+  <Form.Group style={{marginTop: '-20px', marginBottom: '40px'}} controlId={name}>
+    <div style={{display: 'flex', border: "1px solid var(--neutral-20)", borderRadius: 8, backgroundColor: "white"}}>
+      <Form.Control style={{width: "281px", flex: 1, border: "none"}} name={name} onChange={onChange} placeholder={placeholder}></Form.Control>
+      {sentVerification === false ? (
+      <ButtonSmallOutline style={{width: '90px', height: '32px', borderRadius: 8}} type="button" onClick={handleEmailVerify}>이메일 인증</ButtonSmallOutline>
+      ) : (
+      <ButtonSmallOutline style={{width: '90px', height: '32px', borderRadius: 8}} type="button" onClick={handleVerifyCode}>확인</ButtonSmallOutline>
+      )}
+    </div>
+  </Form.Group>
+  );
+};
+
 const Container = styled.div`
   width: 100vw;
   min-height: calc(100vh - 80px);
