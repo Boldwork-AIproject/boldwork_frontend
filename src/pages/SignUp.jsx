@@ -10,12 +10,11 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     const [signUpData, setSignUpData] = useState({
-        email: '',
-        password: '',
-        passwordMatch: '',
-        name: '',
-        phone: '',
-        birthday: ''
+        "email": "",
+        "password": "",
+        "name": "",
+        "phone": "",
+        "birthday": ""
     });
     
     const [sentVerification, setSentVerification] = useState(false);
@@ -123,7 +122,7 @@ const SignUp = () => {
                 <CustomFormGroup
                   label="비밀번호 확인"
                   name="passwordMatch"
-                  value={signUpData.passwordMatch}
+                  value=""
                   onChange={handleChange}
                   type="password"
                   placeholder="비밀번호를 재입력해주세요."

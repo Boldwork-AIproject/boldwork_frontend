@@ -9,8 +9,8 @@ const Login = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
-      username: '',
-      password: '',
+      "username": "",
+      "password": "",
   })
 
   const handleChange = (e) => {
@@ -22,7 +22,12 @@ const Login = ({ onLogin }) => {
     console.log('Login Data:', loginData);
     onLogin();
     try {
-      const response = await axios.post('/login', loginData);
+      const response = await axios.post('/login', JSON.stringify(loginData), {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
       console.log('Response from server:', response.data);
       /*navigate("/");*/
     } catch (error) {
