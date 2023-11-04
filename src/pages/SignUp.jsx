@@ -10,11 +10,12 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     const [signUpData, setSignUpData] = useState({
-        "email": "",
-        "password": "",
-        "name": "",
-        "phone": "",
-        "birthday": ""
+        email: "",
+        password: "",
+        passwordMatch: "",
+        name: "",
+        phone: "",
+        birthday: ""
     });
     
     const [sentVerification, setSentVerification] = useState(false);
@@ -79,10 +80,12 @@ const SignUp = () => {
 
       try {
         const response = await axios.post('/signup', signUpData);
-        console.log('Response from server:', response.data);
+        console.log('Sign Up Successful', response.data);
         //navigate('/complete');
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Sign Up Failed', error.response.data);
+        const warning = "Sign Up Failed. " + error.response.data.detail;
+        alert(warning);
       }
     };
 
@@ -122,7 +125,7 @@ const SignUp = () => {
                 <CustomFormGroup
                   label="비밀번호 확인"
                   name="passwordMatch"
-                  value=""
+                  value={signUpData.passwordMatch}
                   onChange={handleChange}
                   type="password"
                   placeholder="비밀번호를 재입력해주세요."
