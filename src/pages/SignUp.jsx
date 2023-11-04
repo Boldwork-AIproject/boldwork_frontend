@@ -89,6 +89,22 @@ const SignUp = () => {
       }
     };
 
+    const EmailVerifFormGroup = ({ name, onChange, placeholder }) => {
+      return (
+      <Form.Group style={{marginTop: '-20px', marginBottom: '40px'}} controlId={name}>
+        <div style={{display: 'flex', border: "1px solid var(--neutral-20)", borderRadius: 8, backgroundColor: "white"}}>
+          <Form.Control style={{width: "281px", flex: 1, border: "none"}} name={name} onChange={onChange} placeholder={placeholder}></Form.Control>
+          {sentVerification === false ? (
+          <ButtonSmallOutline style={{width: '90px', height: '32px', borderRadius: 8}} type="button" onClick={handleEmailVerify}>이메일 인증</ButtonSmallOutline>
+          ) : (
+          <ButtonSmallOutline style={{width: '90px', height: '32px', borderRadius: 8}} type="button" onClick={handleVerifyCode}>확인</ButtonSmallOutline>
+          )}
+        </div>
+      </Form.Group>
+      );
+    };
+    
+
     return (
             <Container>
                 <Title>Sign Up</Title>
@@ -108,9 +124,6 @@ const SignUp = () => {
                   name="code"
                   onChange={handleChange}
                   placeholder="인증 코드를 입력해주세요"
-                  handleEmailVerify={handleEmailVerify}
-                  sentVerification={sentVerification}
-                  handleVerifyCode={handleVerifyCode}
                 />
 
                 <CustomFormGroup
@@ -171,20 +184,6 @@ const CustomFormGroup = ({ label, name, value, onChange, type, placeholder }) =>
     </Form.Group>
   );
 }
-const EmailVerifFormGroup = ({ name, onChange, placeholder, handleEmailVerify, sentVerification, handleVerifyCode }) => {
-  return (
-  <Form.Group style={{marginTop: '-20px', marginBottom: '40px'}} controlId={name}>
-    <div style={{display: 'flex', border: "1px solid var(--neutral-20)", borderRadius: 8, backgroundColor: "white"}}>
-      <Form.Control style={{width: "281px", flex: 1, border: "none"}} name={name} onChange={onChange} placeholder={placeholder}></Form.Control>
-      {sentVerification === false ? (
-      <ButtonSmallOutline style={{width: '90px', height: '32px', borderRadius: 8}} type="button" onClick={handleEmailVerify}>이메일 인증</ButtonSmallOutline>
-      ) : (
-      <ButtonSmallOutline style={{width: '90px', height: '32px', borderRadius: 8}} type="button" onClick={handleVerifyCode}>확인</ButtonSmallOutline>
-      )}
-    </div>
-  </Form.Group>
-  );
-};
 
 const Container = styled.div`
   width: 100vw;
