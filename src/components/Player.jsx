@@ -1,6 +1,77 @@
-import React from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import styled from "styled-components";
 import { Button } from 'react-bootstrap';
+
+import WaveSurfer from 'https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js'
+import RegionsPlugin from 'https://unpkg.com/wavesurfer.js@7/dist/plugins/regions.esm.js'
+
+// WaveSurfer hook
+const useWavesurfer = (containerRef, options) => {
+    const [wavesurfer, setWavesurfer] = useState(null)
+  
+    // Initialize wavesurfer when the container mounts
+    // or any of the props change
+    useEffect(() => {
+      if (!containerRef.current) return
+  
+      const ws = WaveSurfer.create({
+        ...options,
+        container: containerRef.current,
+      })
+  
+      setWavesurfer(ws)
+  
+      return () => {
+        ws.destroy()
+      }
+    }, [options, containerRef])
+  
+    return wavesurfer
+}
+
+const WaveSurferPlayer = (props) => {
+    const containerRef = useRef()
+    const [isPlaying, setIsPlaying] = useState(false)
+    const [currentTime, setCurrentTime] = useState(0)
+    const wavesurfer = useWavesurfer(containerRef, props)
+  
+    // On play button click
+    const onPlayClick = useCallback(() => {
+      wavesurfer.isPlaying() ? wavesurfer.pause() : wavesurfer.play()
+    }, [wavesurfer])
+  
+    // Initialize wavesurfer when the container mounts
+    // or any of the props change
+    useEffect(() => {
+      if (!wavesurfer) return
+  
+      setCurrentTime(0)
+      setIsPlaying(false)
+  
+      const subscriptions = [
+        wavesurfer.on('play', () => setIsPlaying(true)),
+        wavesurfer.on('pause', () => setIsPlaying(false)),
+        wavesurfer.on('timeupdate', (currentTime) => setCurrentTime(currentTime)),
+      ]
+  
+      return () => {
+        subscriptions.forEach((unsub) => unsub())
+      }
+    }, [wavesurfer])
+  
+    return (
+      <>
+        <Button onClick={onPlayClick} style={PlayPauseButtonStyle}>
+          { isPlaying ? (
+            <img src="/icons/pause.svg" alt="SVG" width="24" height="28" />) : (
+            <img src="/icons/svg/play.svg" alt="SVG" width="24" height="28" />)
+          }
+        </Button>
+
+        <div ref={containerRef}/>
+      </>
+    )
+  }
 
 const PlayPauseButtonStyle = {
     backgroundColor: "var(--neutral-60)",
@@ -47,10 +118,18 @@ const Progress = {
     justifyContent:"flex-start"
 }
 
+const PlayerStyle = {
+  backgroundColor: 'white',
+  display: 'flex',
+  flexDirection: 'row'
+}
+
 const PlayPauseButton = () => {
     return (
         <Button style={PlayPauseButtonStyle}>
-        <img src="/icons/pause.svg" alt="SVG" width="24" height="28" />
+        {/*<img src="/icons/pause.svg" alt="SVG" width="24" height="28" />*/}
+        <img src="/icons/svg/play.svg" alt="SVG" width="24" height="28" />
+
         </Button>
     )
 }
@@ -73,10 +152,33 @@ const PlayerOnly = () => {
 }
 
 const Player = () => {
+    const urls = ['/sample_audio/sample_audio.mp3', '/sample_audio/sample_audio2.mp3']
+    const [audioUrl, setAudioUrl] = useState(urls[0])
+  
+    // Swap the audio URL
+    const onUrlChange = useCallback(() => {
+      urls.reverse()
+      setAudioUrl(urls[0])
+    }, [])
+
     return (
-        <div style={PlayerContainer}>
+        {/*<div style={PlayerContainer}>
             <PlayPauseButton/>
             <PlayerOnly />
+        </div>*/},
+        <div class="waveform">
+          <div style={PlayerOnlyStyle}>
+            <WaveSurferPlayer
+                width={950}
+                height={60}
+                waveColor='#4A42FF'
+                progressColor='white'
+                barWidth='4'
+                barGap='9'
+                barRadius='4'
+                url={audioUrl}
+            />
+          </div>
         </div>
     );
 }
