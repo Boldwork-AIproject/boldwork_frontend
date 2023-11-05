@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "../App.css";
 import { Form } from 'react-bootstrap';
 import styled from "styled-components";
-import { PrevNextContainer, ButtonMediumPrimary, ButtonMediumOutline, ButtonSmallOutline } from "../styledComponents";
+import { PrevNextContainer, ButtonMediumPrimary, ButtonMediumOutline, ButtonSmallSecondary, ButtonSmallDisabled } from "../styledComponents";
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
@@ -15,14 +15,16 @@ const SignUp = () => {
         passwordMatch: "",
         name: "",
         phone: "",
-        birthday: ""
+        birthday: "",
     });
     
     const [sentVerification, setSentVerification] = useState(false);
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
+    const [doneVerification, setDoneVerification] = useState(false);
 
     
+    /*
     // axios post request for sending email verification
     const sendVerificationCode = (email) => {
       console.log(email);
@@ -34,12 +36,18 @@ const SignUp = () => {
         },
       });
       return request;
-    }
+    }*/
 
     // axios post request for verifying if code is correct
     const verifyCode = (email, code) => {
-      const verifyUrl = '/signup/verify';
-      const request = axios.post(verifyUrl, { email, code });
+      console.log(email);
+      console.log(code);
+      const verifyUrl = `http://localhost:8000/signup/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`;
+      const request = axios.post(verifyUrl, null, {
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
       return request;
     };
 
@@ -58,29 +66,46 @@ const SignUp = () => {
       });
     }
     */
+
+   // verify email
    const handleEmailVerify = (e) => {
     e.preventDefault();
 
     console.log(email);
+    
     const requestVerificationUrl = `http://localhost:8000/signup/request-verification?email=${encodeURIComponent(email)}`;
     console.log(requestVerificationUrl);
+    
     axios.post(requestVerificationUrl, null, {
       headers: {
         'Accept': 'application/json',
       },
-    }).then((response) => {
+    })
+    .then((response) => {
         console.log('Email verification sent', response.data);
-      })
-      .catch((error) => {
-        console.error('Error sending verification code', error.response.data);
-      });
+        setSentVerification(true);
+        console.log(sentVerification);
+        const message = response.data.message;
+        alert(message);
+    })
+    .catch((error) => {
+      console.error('Error sending verification code', error.response.data);
+    });
    }
 
     // verify if code is correct
     const handleVerifyCode = () => {
-      verifyCode(email, code)
+      console.log(email);
+      console.log(code);
+      const verifyUrl = `http://localhost:8000/signup/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`;
+      const request = axios.post(verifyUrl, null, {
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
         .then((response) => {
           console.log('Code verification successful:', response.data);
+          setDoneVerification(true);
         })
         .catch((error) => {
           console.error('Code verification failed:', error);
@@ -117,22 +142,6 @@ const SignUp = () => {
       }
     };
 
-    const EmailVerifFormGroup = ({ name, onChange, placeholder }) => {
-      return (
-      <Form.Group style={{marginTop: '-20px', marginBottom: '40px'}} controlId={name}>
-        <div style={{display: 'flex', border: "1px solid var(--neutral-20)", borderRadius: 8, backgroundColor: "white"}}>
-          <Form.Control style={{width: "281px", flex: 1, border: "none"}} name={name} onChange={onChange} placeholder={placeholder}></Form.Control>
-          {sentVerification === false ? (
-          <ButtonSmallOutline style={{width: '90px', height: '32px', borderRadius: 8}} type="button" onClick={handleEmailVerify}>이메일 인증</ButtonSmallOutline>
-          ) : (
-          <ButtonSmallOutline style={{width: '90px', height: '32px', borderRadius: 8}} type="button" onClick={handleVerifyCode}>확인</ButtonSmallOutline>
-          )}
-        </div>
-      </Form.Group>
-      );
-    };
-    
-
     return (
             <Container>
                 <Title>Sign Up</Title>
@@ -151,7 +160,11 @@ const SignUp = () => {
                 <EmailVerifFormGroup
                   name="code"
                   onChange={handleChange}
-                  placeholder="인증 코드를 입력해주세요"
+                  placeholder="인증 코드를 입력해주세요."
+                  handleEmailVerify={handleEmailVerify}
+                  sentVerification={sentVerification}
+                  handleVerifyCode={handleVerifyCode}
+                  doneVerification={doneVerification}
                 />
 
                 <CustomFormGroup
@@ -204,6 +217,32 @@ const SignUp = () => {
             </Container>
     );
 }
+
+const InputFieldStyle = {
+  display: 'flex',
+  border: "1px solid var(--neutral-20)", 
+  borderRadius: 8, 
+  backgroundColor: "white",
+}
+
+const EmailVerifFormGroup = ({ name, value, onChange, placeholder, handleEmailVerify, sentVerification, handleVerifyCode, doneVerification }) => {
+  return (
+  <Form.Group style={{marginTop: '-20px', marginBottom: '40px'}} controlId={name}>
+    <div style={InputFieldStyle}>
+      <Form.Control style={{width: "281px", flex: 1, border: "none"}} name={name} value={value} onChange={onChange} placeholder={placeholder} handleEmailVerify={handleEmailVerify} sentVerification={sentVerification} handleVerifyCode={handleVerifyCode}></Form.Control>
+      {sentVerification === false ? (
+      <ButtonSmallSecondary type="button" onClick={handleEmailVerify}>이메일 인증</ButtonSmallSecondary>
+      ) : ( doneVerification === false ? (
+          <ButtonSmallSecondary type="button" onClick={handleVerifyCode}>확인</ButtonSmallSecondary>
+          ) : (
+          <ButtonSmallDisabled type="button">확인</ButtonSmallDisabled>
+          )
+      )}
+    </div>
+  </Form.Group>
+  );
+};
+
 const CustomFormGroup = ({ label, name, value, onChange, type, placeholder }) => {
   return (
     <Form.Group style={{ marginBottom: '32px', width: '508px' }} controlId={name}>

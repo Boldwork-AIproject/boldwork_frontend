@@ -11,7 +11,7 @@ export const ButtonBlockPrimary = styled.button`
     width: 508px;
     border-radius: 8px;
     text-align: center;
-    margin: 10px;
+    margin-bottom: 10px;
 
     &:hover {
         background-color: var(--primary-100-dark);
@@ -20,7 +20,6 @@ export const ButtonBlockPrimary = styled.button`
 export const ButtonLargePrimary = styled.button`
     background-color: var(--primary-100);
     color: white;
-    border: 1px solid var(--primary-100);
     border: 1px solid var(--primary-100);
     font-size: var(--body-3);
     font-weight: bold;
@@ -33,14 +32,11 @@ export const ButtonLargePrimary = styled.button`
     &:hover {
         background-color: var(--primary-100-dark);
         border: 1px solid var(--primary-100-dark);
-        border: 1px solid var(--primary-100-dark);
     }
 `
 export const ButtonLargeOutline = styled.button`
     background-color: var(--primary-5);
     color: var(--primary-100);
-    border: none;
-    box-shadow: 0 0 0 1px var(--primary-100) inset;
     border: none;
     box-shadow: 0 0 0 1px var(--primary-100) inset;
     font-size: var(--body-3);
@@ -56,14 +52,11 @@ export const ButtonLargeOutline = styled.button`
         color: white;
         border: 1px solid var(--primary-100-dark);
         box-shadow: none;
-        border: 1px solid var(--primary-100-dark);
-        box-shadow: none;
     }
 `
 export const ButtonLargeDisabled = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-30);
-    border: 1px solid var(--neutral-5);
     border: 1px solid var(--neutral-5);
     font-size: var(--body-3);
     font-weight: bold;
@@ -72,11 +65,11 @@ export const ButtonLargeDisabled = styled.button`
     border-radius: 8px;
     text-align: center;
     margin: 10px;
+    cursor: default;
 `
 export const ButtonLargeSecondary = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-60);
-    border: 1px solid var(--neutral-5);
     border: 1px solid var(--neutral-5);
     font-size: var(--body-3);
     font-weight: bold;
@@ -90,7 +83,6 @@ export const ButtonMediumPrimary = styled.button`
     background-color: var(--primary-100);
     color: white;
     border: 1px solid var(--primary-100);
-    border: 1px solid var(--primary-100);
     font-size: var(--body-3);
     font-weight: medium;
     height: 40px;
@@ -105,7 +97,6 @@ export const ButtonMediumPrimary = styled.button`
     &:hover {
         background-color: var(--primary-100-dark);
         border: 1px solid var(--primary-100-dark);
-        border: 1px solid var(--primary-100-dark);
     }
 `
 export const ButtonMediumOutline = styled.button`
@@ -114,7 +105,6 @@ export const ButtonMediumOutline = styled.button`
     border: none;
     box-shadow: 0 0 0 1px var(--primary-100) inset;
     border: none;
-    box-shadow: 0 0 0 1px var(--primary-100) inset;
     font-size: var(--body-3);
     font-weight: medium;
     height: 40px;
@@ -131,14 +121,11 @@ export const ButtonMediumOutline = styled.button`
         color: white;
         border: 1px solid var(--primary-100-dark);
         box-shadow: none;
-        border: 1px solid var(--primary-100-dark);
-        box-shadow: none;
     }
 `
 export const ButtonMediumDisabled = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-30);
-    border: 1px solid var(--neutral-5);
     border: 1px solid var(--neutral-5);
     font-size: var(--body-3);
     font-weight: medium;
@@ -150,11 +137,11 @@ export const ButtonMediumDisabled = styled.button`
     padding: 11px 36px 33px 36px;
     white-space: nowrap;
     overflow: hidden;
+    cursor: default;
 `
 export const ButtonMediumSecondary = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-60);
-    border: 1px solid var(--neutral-5);
     border: 1px solid var(--neutral-5);
     font-size: var(--body-3);
     font-weight: medium;
@@ -171,18 +158,16 @@ export const ButtonSmallPrimary = styled.button`
     background-color: var(--primary-100);
     color: white;
     border: 1px solid var(--primary-100);
-    border: 1px solid var(--primary-100);
     font-size: var(--body-5);
     font-weight: regular;
-    height: 38px;
-    width: 72px;
+    height: 32px;
+    width: 90px;
     border-radius: 8px;
     text-align: center;
     margin: 10px;
 
     &:hover {
         background-color: var(--primary-100-dark);
-        border: 1px solid var(--primary-100-dark);
         border: 1px solid var(--primary-100-dark);
     }
 `
@@ -191,12 +176,10 @@ export const ButtonSmallOutline = styled.button`
     color: var(--primary-100);
     border: none;
     box-shadow: 0 0 0 1px var(--primary-100) inset;
-    border: none;
-    box-shadow: 0 0 0 1px var(--primary-100) inset;
     font-size: var(--body-5);
     font-weight: regular;
-    height: 38px;
-    width: 72px;
+    height: 32px;
+    width: 90px;
     border-radius: 8px;
     text-align: center;
     margin: 10px;
@@ -206,34 +189,38 @@ export const ButtonSmallOutline = styled.button`
         color: white;
         border: none;
         box-shadow: none;
-        box-shadow: none;
     }
 `
 export const ButtonSmallDisabled = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-30);
     border: 1px solid var(--neutral-5);
-    border: 1px solid var(--neutral-5);
     font-size: var(--body-5);
     font-weight: regular;
-    height: 38px;
-    width: 72px;
+    height: 32px;
+    width: 90px;
     border-radius: 8px;
     text-align: center;
     margin: 10px;
+    cursor: default;
 `
 export const ButtonSmallSecondary = styled.button`
     background-color: var(--neutral-5);
     color: var(--neutral-60);
     border: 1px solid var(--neutral-5);
-    border: 1px solid var(--neutral-5);
     font-size: var(--body-5);
     font-weight: regular;
-    height: 38px;
-    width: 72px;
+    height: 32px;
+    width: 90px;
     border-radius: 8px;
     text-align: center;
     margin: 10px;
+
+    &:hover {
+        background-color: var(--neutral-10);
+        border: none;
+        box-shadow: none;
+    }
 `
 
 export const PrevNextContainer = styled.div`
