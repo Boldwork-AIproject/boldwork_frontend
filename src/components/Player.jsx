@@ -60,20 +60,23 @@ const WaveSurferPlayer = (props) => {
     }, [wavesurfer])
   
     return (
-      <>
+      <div class="waveform" style={PlayerContainer}>
         <Button onClick={onPlayClick} style={PlayPauseButtonStyle}>
           { isPlaying ? (
             <img src="/icons/pause.svg" alt="SVG" width="24" height="28" />) : (
-            <img src="/icons/svg/play.svg" alt="SVG" width="24" height="28" />)
+            <img src="/icons/play.svg" alt="SVG" width="55" height="63" />)
           }
         </Button>
 
-        <div ref={containerRef}/>
-      </>
+        <div ref={containerRef} style={PlayerStyle}/>
+      </div>
     )
   }
 
 const PlayPauseButtonStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: "var(--neutral-60)",
     width: 65,
     height: 65,
@@ -119,9 +122,15 @@ const Progress = {
 }
 
 const PlayerStyle = {
-  backgroundColor: 'white',
-  display: 'flex',
-  flexDirection: 'row'
+  backgroundColor: "white", 
+  border: "1px solid var(--primary-10)", 
+  width: 950, 
+  height: 65, 
+  marginLeft: 24, 
+  display: "flex", 
+  justifyContent: "flex-start", 
+  alignItems: "center",
+  borderRadius: 8
 }
 
 const PlayPauseButton = () => {
@@ -129,7 +138,6 @@ const PlayPauseButton = () => {
         <Button style={PlayPauseButtonStyle}>
         {/*<img src="/icons/pause.svg" alt="SVG" width="24" height="28" />*/}
         <img src="/icons/svg/play.svg" alt="SVG" width="24" height="28" />
-
         </Button>
     )
 }
@@ -162,24 +170,16 @@ const Player = () => {
     }, [])
 
     return (
-        {/*<div style={PlayerContainer}>
-            <PlayPauseButton/>
-            <PlayerOnly />
-        </div>*/},
-        <div class="waveform">
-          <div style={PlayerOnlyStyle}>
-            <WaveSurferPlayer
-                width={950}
-                height={60}
-                waveColor='#4A42FF'
-                progressColor='white'
-                barWidth='4'
-                barGap='9'
-                barRadius='4'
-                url={audioUrl}
-            />
-          </div>
-        </div>
+        <WaveSurferPlayer
+            width={950}
+            height={60}
+            waveColor='#4A42FF'
+            progressColor='grey'
+            barWidth='4'
+            barGap='9'
+            barRadius='4'
+            url={audioUrl}
+        />
     );
 }
 
