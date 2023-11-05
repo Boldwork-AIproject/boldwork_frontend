@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import "../Main.css";
+import "./Main.css";
 import { ButtonLargePrimary } from "../styledComponents.js";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";

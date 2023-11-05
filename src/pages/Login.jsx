@@ -1,15 +1,43 @@
-import React from "react";
+import axios from '../axios.js';
+import React, { useState } from "react";
 import "../App.css";
 import { Container, Form } from "react-bootstrap";
 import { ButtonBlockPrimary, KakaoLabelIcon, NaverLabelIcon } from "../styledComponents"
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const navigate = useNavigate();
-  const handleLoginClick = () => {
-    onLogin();
-    navigate("/");
+
+  const [loginData, setLoginData] = useState({
+      username: '',
+      password: '',
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((loginData) => ({ ...loginData, [name]: value }));
   };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const formDataToSend = new FormData();
+    formDataToSend.append('username', loginData.username);
+    formDataToSend.append('password', loginData.password);
+
+    console.log('Login Data:', loginData);
+
+    axios.post('/login', formDataToSend)
+      .then((response) => {
+        console.log('Login successful', response.data);
+      })
+      .catch((error) => {
+        console.error('Login failed', error.response.data);
+        const warning = "Login Failed. " + error.response.data.detail;
+        alert(warning);
+      });
+  };
+  
   return (
     <>
       <Container id="login" style={loginContainer}>
@@ -21,13 +49,15 @@ const Login = ({ onLogin }) => {
         </Container>
 
         <Container id="input_boxes" style={inputContainer}>
+          <Form onSubmit={handleLogin}>
           <Form.Group style={{marginBottom: "16px", width: "508px"}} controlId="formEmail">
-              <Form.Control style={{height: "48px"}} type="email" placeholder="이메일을 입력해주세요." />
+              <Form.Control style={{height: "48px"}} name="username" value={loginData.username} onChange={handleChange} type="email" placeholder="이메일을 입력해주세요." />
           </Form.Group>
           <Form.Group style={{width: "508px"}} controlId="formPass">
-              <Form.Control style={{height: "48px"}} type="password" placeholder="비밀번호를 입력해주세요." />
+              <Form.Control style={{height: "48px"}} name="password" value={loginData.password} onChange={handleChange} type="password" placeholder="비밀번호를 입력해주세요." />
           </Form.Group>
-          <ButtonBlockPrimary style={{marginTop: "32px"}} onClick={handleLoginClick}>로그인</ButtonBlockPrimary>
+          <ButtonBlockPrimary type="submit" style={{marginTop: "32px"}}>로그인</ButtonBlockPrimary>
+          </Form>
         </Container>
 
         <p style={{fontSize:"var(--body-4)", marginTop:"24px"}}>
