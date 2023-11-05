@@ -22,10 +22,17 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
 
+    
     // axios post request for sending email verification
     const sendVerificationCode = (email) => {
-      const requestVerificationUrl = '/signup/request-verification';
-      const request = axios.post(requestVerificationUrl, { email });
+      console.log(email);
+      const requestVerificationUrl = `http://localhost:8000/signup/request-verification?email=${encodeURIComponent(email)}`;
+      console.log(requestVerificationUrl);
+      const request = axios.post(requestVerificationUrl, null, {
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
       return request;
     }
 
@@ -36,8 +43,11 @@ const SignUp = () => {
       return request;
     };
 
+    /*
     // verify email by sending code
-    const handleEmailVerify = () => {
+    const handleEmailVerify = (e) => {
+      e.preventDefault();
+
       sendVerificationCode(email)
       .then((response) => {
         console.log('Verification code sent successfully:', response.data);
@@ -47,6 +57,24 @@ const SignUp = () => {
         console.error('Error sending verification code:', error);
       });
     }
+    */
+   const handleEmailVerify = (e) => {
+    e.preventDefault();
+
+    console.log(email);
+    const requestVerificationUrl = `http://localhost:8000/signup/request-verification?email=${encodeURIComponent(email)}`;
+    console.log(requestVerificationUrl);
+    axios.post(requestVerificationUrl, null, {
+      headers: {
+        'Accept': 'application/json',
+      },
+    }).then((response) => {
+        console.log('Email verification sent', response.data);
+      })
+      .catch((error) => {
+        console.error('Error sending verification code', error.response.data);
+      });
+   }
 
     // verify if code is correct
     const handleVerifyCode = () => {
