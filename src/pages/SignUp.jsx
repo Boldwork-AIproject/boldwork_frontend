@@ -134,7 +134,7 @@ const SignUp = () => {
       try {
         const response = await axios.post('/signup', signUpData);
         console.log('Sign Up Successful', response.data);
-        //navigate('/complete');
+        navigate('/complete');
       } catch (error) {
         console.error('Sign Up Failed', error.response.data);
         const warning = "Sign Up Failed. " + error.response.data.detail;

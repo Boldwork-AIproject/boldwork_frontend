@@ -5,7 +5,7 @@ import { Container, Form } from "react-bootstrap";
 import { ButtonBlockPrimary, KakaoLabelIcon, NaverLabelIcon } from "../styledComponents"
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
@@ -30,6 +30,8 @@ const Login = () => {
     axios.post('/login', formDataToSend)
       .then((response) => {
         console.log('Login successful', response.data);
+        onLogin();
+        navigate("/");
       })
       .catch((error) => {
         console.error('Login failed', error.response.data);
