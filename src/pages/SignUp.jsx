@@ -110,8 +110,6 @@ const SignUp = () => {
         .catch((error) => {
           console.error('Code verification failed:', error);
         });
-      console.log(email);
-      console.log(code);
     };
 
     const handleChange = (e) => {

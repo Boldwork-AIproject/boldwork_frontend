@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import axios from './axios.js';
 import React, { useState } from "react";
 import "./App.css";
@@ -32,27 +33,36 @@ function App() {
     setIsLoggedIn(true);
   };
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    try {
+      Cookies.remove('access_token');
+      setIsLoggedIn(false);
+      console.log('Logout successful');
+
+      // force refresh to reflect removal of access token cookie
+      window.location.reload(false);
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+    
+    /*
     axios.get('http://localhost:8000/logout', {
       headers: {
         'Accept': 'application/json',
       },
     })
     .then((response) => {
-      // Handle the response if needed (e.g., display a confirmation message)
       console.log('Logout successful', response.data);
-  
-      // Delete the access token cookie and perform other logout-related tasks
-      //Cookies.remove('access_token');
+
+      // Delete access token cookie
+      Cookies.remove('access_token');
       setIsLoggedIn(false);
   
-      // Redirect the user to the login page or any other desired page
-      <Navigate to="/login" />
+      //<Navigate to="/login" />
     })
     .catch((error) => {
       console.error('Logout failed', error);
-      // Handle any errors that may occur during the logout process
     });
+    */
   };
 
   return (

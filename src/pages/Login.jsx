@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import axios from '../axios.js';
 import React, { useState } from "react";
 import "../App.css";
@@ -30,6 +31,10 @@ const Login = ({ onLogin }) => {
     axios.post('/login', formDataToSend)
       .then((response) => {
         console.log('Login successful', response.data);
+        // saves cookie via front end
+        const accessToken = response.data.access_token;
+        Cookies.set('access_token', accessToken, { expires: 7 }); // Expires in 7 days
+        // sets logged in state in App.js
         onLogin();
         navigate("/");
       })
