@@ -235,7 +235,7 @@ export const ButtonSmallSecondary = styled.button`
 `
 
 export const PrevNextContainer = styled.div`
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
