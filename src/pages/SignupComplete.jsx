@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Container } from "../styledComponents";
 import image from "../assets/signup-complete.png";
 import { useNavigate } from "react-router-dom";
 export default function SignupComplete() {
@@ -25,15 +26,6 @@ export default function SignupComplete() {
     </Container>
   );
 }
-const Container = styled.div`
-  width: 100vw;
-  height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--background-5, #fafaff);
-`;
 const Image = styled.img`
   width: 291.933px;
   height: 309.333px;

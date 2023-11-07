@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Container } from "../styledComponents";
 import InputWithLabel from "../components/InputWithLabel";
 import RadioWithLabel from "../components/RadioWithLabel";
 import TextareaWithLabel from "../components/TextareaWithLabel";
@@ -74,15 +75,6 @@ export default function CustomerInfoDetail() {
     </Container>
   );
 }
-const Container = styled.div`
-  width: 100vw;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background: var(--background-5, #fafaff);
-`;
 const Title = styled.p`
   margin: 0;
   margin-top: 80px;
