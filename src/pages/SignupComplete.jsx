@@ -1,15 +1,40 @@
-import React from "react";
+import axios from '../axios.js';
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Container } from "../styledComponents";
 import image from "../assets/signup-complete.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 export default function SignupComplete() {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const userName = location.state.userName;
+
+  /*
+  const [consultantName, setConsultantName] = useState('');
+
+   // GET request if /signup/complete brought back name of consultant
+  useEffect(() => {
+    // Fetch user data from your FastAPI endpoint
+    axios.get('/complete')
+      .then((response) => {
+        console.log("Retrieved user data: ", response.data);
+        const { data } = response;
+        if (data.data) {
+          setConsultantName(data.data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user data', error);
+      });
+  }, []);
+  */
+
   return (
-    <Container>
+    <Container style= {{justifyContent: 'center'}}>
       <Image src={image} />
       <Title>
-        <TitleName>홍길동</TitleName>님, 환영합니다!
+        <TitleName>{userName}</TitleName>님, 환영합니다!
       </Title>
       <Desc>
         지금 바로 상담 내용을 자동으로 분석하고 정리해주는
