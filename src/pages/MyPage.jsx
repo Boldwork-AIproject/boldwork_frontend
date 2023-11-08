@@ -20,29 +20,31 @@ export default function MyPage() {
   const [userData, setUserData] = useState(null);
 
   const getUserData = () => {
-    // Fetch user data from your FastAPI endpoint
-    axios.get('http://localhost:8000/mypage', {
+    axios.get('http://localhost:8000/mypage/', {
       headers: {
         'Accept': 'application/json',
       },
+      withCredentials: true,
     })
       .then((response) => {
-        console.log(response.data.data);
-        /*
-        const { data } = response;
-        if (data.data) {
-          setUserData(data.data);
-        }
-        */
+        //console.log(response.data.data);
+        setUserData(response.data.data);
+        
+        setEmail(response.data.data.email);
+        setName(response.data.data.name);
+        setPassword(response.data.data.password);
+        setPhone(response.data.data.phone);
+        setBirth(response.data.data.birthday);
       })
       .catch((error) => {
-        console.error('Error fetching user data', error);
+        console.error('Error fetching user data', error.response.data.detail);
       });
   }
 
   useEffect(() => {
     getUserData();
   }, []);
+  
 
   return (
     <Container>
