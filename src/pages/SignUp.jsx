@@ -38,6 +38,7 @@ const SignUp = () => {
       return request;
     }*/
 
+    /*
     // axios post request for verifying if code is correct
     const verifyCode = (email, code) => {
       console.log(email);
@@ -49,7 +50,7 @@ const SignUp = () => {
         },
       });
       return request;
-    };
+    };*/
 
     /*
     // verify email by sending code
@@ -98,7 +99,7 @@ const SignUp = () => {
       console.log(email);
       console.log(code);
       const verifyUrl = `/signup/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`;
-      const request = axios.post(verifyUrl, null, {
+      axios.post(verifyUrl, null, {
         headers: {
           'Accept': 'application/json',
         },
