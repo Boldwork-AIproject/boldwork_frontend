@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { Container } from "../styledComponents";
 import { useNavigate } from 'react-router-dom';
@@ -7,52 +7,129 @@ import { Form } from "react-bootstrap";
 
 export default function UploadCall() {
   const navigate = useNavigate();
+
+  const [customerData, setCustomerData] = useState({
+    name: "",
+    phone: "",
+    birthday: "",
+    email: "",
+    gender: "",
+    file: "",
+  });
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    //console.log(`Before update(customerData): ${name} = ${customerData[name]}`);
+    setCustomerData((customerData) => ({ ...customerData, [name]: value }));
+    //console.log(`After update: ${name} = ${value}`);
+  };
+
+  const fileInputRef = React.useRef(null);
+
+  const handleFileChange = (event) => {
+    const uploadedFile = event.target.files[0];
+
+    if (uploadedFile) {
+      console.log("Selected file:", uploadedFile);
+      console.log(uploadedFile.name);
+      setSelectedFile(uploadedFile);
+
+      //customerData.file = selectedFile;
+      //console.log("Customer Data File: ", customerData.file);
+    }
+  };
+
+  const handleIconClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleSubmit = () => {
+    console.log(customerData);
+  }
+
   return (
     <Container>
+
       <Title>Upload Call</Title>
       <Desc>상담 업로드하기</Desc>
       <Notice>*표시는 필수입력항목 입니다.</Notice>
+
       <Form>
-        <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formName">
-            <Form.Label>고객명<span style={{color: "var(--warning)"}}> *</span></Form.Label>
-            <Form.Control style={{height: "48px"}} placeholder="고객명을 입력해주세요." />
-        </Form.Group>
-        <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formPhone">
-            <Form.Label>전화번호<span style={{color: "var(--warning)"}}> *</span></Form.Label>
-            <Form.Control style={{height: "48px"}} placeholder="전화번호를 입력해주세요." />
-        </Form.Group>
-        <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formBirthday">
-            <Form.Label>생년월일</Form.Label>
-            <Form.Control style={{height: "48px"}} placeholder="생년월일 6자리를 입력해주세요.(예: 970503)" />
-        </Form.Group>
-        <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formEmail">
-            <Form.Label>이메일</Form.Label>
-            <Form.Control style={{height: "48px"}} type="email" placeholder="이메일을 입력해주세요." />
-        </Form.Group>
-        <Form.Group style={{marginBottom: "32px", width: "508px"}} controlId="formID">
-            <Form.Label>성별<span style={{color: "var(--warning)"}}> *</span></Form.Label>
-            <Form>
-                {['radio'].map((type) => (
-                    <div key={`inline-${type}`} className="mb-3">
-                    <Form.Check inline label="모름" name="group1" type={type} id={`inline-${type}-1`} />
-                    <Form.Check inline label="남" name="group1" type={type} id={`inline-${type}-2`} />
-                    <Form.Check inline label="여" name="group1" type={type} id={`inline-${type}-3`} />
-                    </div>
-                ))}
-            </Form>
-        </Form.Group>
-        <Form.Group style={{width: "508px"}} controlId="formPassCheck">
-            <Form.Label>첨부 파일<span style={{color: "var(--warning)"}}> *</span></Form.Label>
-            <Form.Control style={{height: "48px"}} placeholder="파일을 업로드해주세요." />
-            <Form.Text style={{marginTop: "8px"}}>첨부파일은 1개, 300MB까지 등록 가능합니다.</Form.Text>
-        </Form.Group>
-    </Form>
-    <PrevNextContainer style={{marginTop: "40px"}}>
+        <CustomFormGroup controlId="formName" label="고객명" isRequired>
+          <Form.Control style={{ height: "48px" }} onChange={handleChange} placeholder="고객명을 입력해주세요." />
+        </CustomFormGroup>
+
+        <CustomFormGroup controlId="formPhone" label="전화번호" isRequired>
+          <Form.Control style={{ height: "48px" }} onChange={handleChange} placeholder="전화번호를 입력해주세요." />
+        </CustomFormGroup>
+
+        <CustomFormGroup controlId="formBirthday" label="생년월일">
+          <Form.Control
+            style={{ height: "48px" }}
+            onChange={handleChange} 
+            placeholder="생년월일 6자리를 입력해주세요.(예: 970503)"
+          />
+        </CustomFormGroup>
+
+        <CustomFormGroup controlId="formEmail" label="이메일">
+          <Form.Control style={{ height: "48px" }} type="email" onChange={handleChange} placeholder="이메일을 입력해주세요." />
+        </CustomFormGroup>
+
+        <CustomFormGroup controlId="formID" label="성별" isRequired>
+          <Form>
+            {['radio'].map((type) => (
+              <div key={`inline-${type}`} className="mb-3">
+                <Form.Check inline label="모름" name="gender" type={type} id={`inline-${type}-1`} value="모름" onChange={handleChange} />
+                <Form.Check inline label="남" name="gender" type={type} id={`inline-${type}-2`} value="남성" onChange={handleChange} />
+                <Form.Check inline label="여" name="gender" type={type} id={`inline-${type}-3`} value="여성" onChange={handleChange} />
+              </div>
+            ))}
+          </Form>
+        </CustomFormGroup>
+
+        <CustomFormGroup controlId="formFileUpload" label="첨부 파일" isRequired>
+          <div style={InputFieldStyle}>
+            <Form.Control style={{ height: "48px", flex: "1", width: "281px", border: "none" }} placeholder={selectedFile ? selectedFile.name : "파일을 업로드해주세요."} readOnly />
+            <img src="/icons/Link.svg" alt="Link Icon" style={UploadFileButtonStyle} onClick={handleIconClick} />
+            <input type="file" accept="audio/*" style={{ display: "none" }} ref={fileInputRef} onChange={handleFileChange} />
+          </div>
+          <Form.Text style={{ marginTop: "8px" }}>첨부파일은 1개, 300MB까지 등록 가능합니다.</Form.Text>
+        </CustomFormGroup>
+
+      </Form>
+
+    <PrevNextContainer style={{marginTop: "8px"}}>
         <ButtonMediumOutline style={{fontSize: "var(--body-4)", borderRadius: "4px", marginRight:"5px"}}>이전으로</ButtonMediumOutline>
-        <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={() => {navigate("/upload/loading");}}>분석하기</ButtonMediumPrimary>
+        <ButtonMediumPrimary style={{fontSize: "var(--body-4)", borderRadius: "4px"}} onClick={handleSubmit}/*onClick={() => {navigate("/upload/loading");}}*/ >분석하기</ButtonMediumPrimary>
     </PrevNextContainer>
+
     </Container>
   );
+}
+
+const CustomFormGroup = ({ controlId, label, isRequired, children }) => {
+  return (
+    <Form.Group style={{ marginBottom: "32px", width: "508px" }} controlId={controlId}>
+      <Form.Label>
+        {label}
+        {isRequired && <span style={{ color: "var(--warning)" }}> *</span>}
+      </Form.Label>
+      {children}
+    </Form.Group>
+  );
+};
+
+const UploadFileButtonStyle = {
+  marginLeft: "15px", 
+  marginRight: "15px" 
+}
+const InputFieldStyle = {
+  display: 'flex',
+  border: "1px solid var(--neutral-20)", 
+  borderRadius: 8, 
+  backgroundColor: "white",
 }
 const Title = styled.p`
   margin: 0;
