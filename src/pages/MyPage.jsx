@@ -8,33 +8,40 @@ import SaveCompleteModal from "../components/SaveCompleteModal";
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("id1234");
-  const [password, setPassword] = useState("11111111");
-  const [confirmPassword, setConfirmPassword] = useState("11111111");
-  const [name, setName] = useState("김철수");
-  const [phone, setPhone] = useState("0123456789");
-  const [birth, setBirth] = useState("970503");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("1111111111");
+  const [confirmPassword, setConfirmPassword] = useState("1111111111");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [birth, setBirth] = useState("");
   const [editable, setEditable] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const [userData, setUserData] = useState(null);
 
   const getUserData = () => {
-    axios.get('http://localhost:8000/mypage/', {
+    axios.get('/mypage/', {
       headers: {
         'Accept': 'application/json',
       },
       withCredentials: true,
     })
       .then((response) => {
-        //console.log(response.data.data);
+        // check response data
+        console.log(response.data.data);
+
+        // save user data
         setUserData(response.data.data);
         
+        // set specific data variables
         setEmail(response.data.data.email);
         setName(response.data.data.name);
         setPassword(response.data.data.password);
+        setConfirmPassword(response.data.data.password);
         setPhone(response.data.data.phone);
         setBirth(response.data.data.birthday);
+
+        console.log("Fetching user data successful.");
       })
       .catch((error) => {
         console.error('Error fetching user data', error.response.data.detail);
@@ -44,7 +51,32 @@ export default function MyPage() {
   useEffect(() => {
     getUserData();
   }, []);
-  
+
+  const editUserData = () => {
+    const updatedUserData = {
+      email,
+      password,
+      name,
+      phone,
+      birthday: birth,
+    };
+
+    console.log("updated User Data: ", updatedUserData);
+
+    axios.put('/mypage/', updatedUserData, {
+      headers: {
+        'Accept': 'application/json',
+      },
+      withCredentials: true,
+    })
+      .then((response) => {
+        console.log("User data update successful.", response.data);
+        setEditable(false);
+      })
+      .catch((error) => {
+        console.error('Error updating user data', error.response.data.detail);
+      });
+  }
 
   return (
     <Container>
@@ -67,6 +99,7 @@ export default function MyPage() {
           highlight={editable}
           nonEdit={!editable}
           password
+          onChange={(e) => setPassword(e.target.value)}
         />
         <InputWithLabel
           value={confirmPassword}
@@ -76,6 +109,7 @@ export default function MyPage() {
           highlight={editable}
           nonEdit={!editable}
           password
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <InputWithLabel
           value={name}
@@ -84,6 +118,7 @@ export default function MyPage() {
           placeholder="이름을 입력해주세요."
           highlight={editable}
           nonEdit={!editable}
+          onChange={(e) => setName(e.target.value)}
         />
         <InputWithLabel
           value={phone}
@@ -92,6 +127,7 @@ export default function MyPage() {
           placeholder="휴대전화번호를 입력해주세요."
           highlight={editable}
           nonEdit={!editable}
+          onChange={(e) => setPhone(e.target.value)}
         />
         <InputWithLabel
           value={birth}
@@ -112,6 +148,7 @@ export default function MyPage() {
         {editable ? (
           <Button2
             onClick={() => {
+              editUserData();
               setShowModal(true);
             }}
           >
@@ -148,7 +185,7 @@ const Title = styled.p`
 const Desc = styled.p`
   margin: 0;
   margin-top: 16px;
-  margin-bottom: 80px;
+  margin-bottom: 24px;
   color: var(--neutral-80, #333);
   text-align: center;
 
