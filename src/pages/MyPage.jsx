@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from '../axios.js';
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Container } from "../styledComponents";
@@ -15,6 +16,33 @@ export default function MyPage() {
   const [birth, setBirth] = useState("970503");
   const [editable, setEditable] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const [userData, setUserData] = useState(null);
+
+  const getUserData = () => {
+    // Fetch user data from your FastAPI endpoint
+    axios.get('http://localhost:8000/mypage', {
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data);
+        /*
+        const { data } = response;
+        if (data.data) {
+          setUserData(data.data);
+        }
+        */
+      })
+      .catch((error) => {
+        console.error('Error fetching user data', error);
+      });
+  }
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <Container>
