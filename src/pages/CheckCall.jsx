@@ -64,24 +64,29 @@ export default function CheckCall() {
     setData(data.filter((item) => item.id !== idToDelete));   
   };
 
-  
-  // get customer data from /info
-  // due to internal server error (500)
+  const formatDate = (creation_time) => {
+    var date = creation_time.split("T")[0];
+    var time = creation_time.split("T")[1].substring(0, 5);
+    return date + " " + time;
+  }
+
+  // get customer data from inference
+  // (after data is inferred from conversation)
+  // customers must have conversation ids (i.e. 상담내역 있음)
   const getCustomerList = async (page) => {
     try {
-      const response = await axios.get(`/info/?page=${page}`, {
+      const response = await axios.get(`/check/?page=${page}`, {
         withCredentials: true,
       });
 
       console.log(response.data);
       const { message, totalPage, data: responseData } = response.data;
-      const transformedData = responseData.map(({ customer_id, customer_name, customer_phone }) => ({
+      const transformedData = responseData.map(({ customer_id, customer_name, customer_phone, creation_time, keyword }) => ({
         id: customer_id,
         name: customer_name,
         phone: customer_phone,
-        time: "2023. 09. 02 16:02",
+        time: formatDate(creation_time),
         categories: ["반품문의", "배송지연"],
-        // add dummy data for time, categories
       }));
 
       setData(transformedData);
