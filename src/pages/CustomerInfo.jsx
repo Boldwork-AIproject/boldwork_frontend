@@ -44,7 +44,7 @@ export default function CustomerInfo() {
 
   const getCustomerList = async (page) => {
     try {
-      const response = await axios.get(`http://localhost:8000/info/?page=${page}`, {
+      const response = await axios.get(`/info/?page=${page}`, {
         withCredentials: true,
       });
 
