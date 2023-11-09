@@ -28,7 +28,7 @@ export default function CustomerInfoDetail() {
 
   const getCustomerInfo = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/info/${id}`, {
+      const response = await axios.get(`/info/${id}`, {
         withCredentials: true,
       });
 
@@ -61,6 +61,40 @@ export default function CustomerInfoDetail() {
     setGender(initialData.gender);
     setMemo(initialData.memo);
   };
+
+  const editCustomerData = () => {
+    const updatedCustomerData = {
+      name,
+      phone,
+      birthday: birth,
+      email,
+      memo
+    };
+
+    console.log("updated Customer Data: ", updatedCustomerData);
+
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', updatedCustomerData.name);
+    formDataToSend.append('phone', updatedCustomerData.phone);
+    formDataToSend.append('birthday', updatedCustomerData.birthday);
+    formDataToSend.append('email', updatedCustomerData.email);
+    formDataToSend.append('memo', updatedCustomerData.memo);
+
+    axios.put(`/info/${id}`, formDataToSend, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        "Access-Control-Allow-Origin": "*",
+      },
+      withCredentials: true,
+    })
+      .then((response) => {
+        console.log("User data update successful.", response.data);
+      })
+      .catch((error) => {
+        console.error('Error updating user data', error.response.data.detail);
+      });
+  }
 
   return (
     <Container>
@@ -108,7 +142,7 @@ export default function CustomerInfoDetail() {
         <Button1 onClick={resetToInitialValues}>
           초기화
         </Button1>
-        <Button2 onClick={() => {}}>저장하기</Button2>
+        <Button2 onClick={editCustomerData}>저장하기</Button2>
       </ButtonsWrapper>
     </Container>
   );
