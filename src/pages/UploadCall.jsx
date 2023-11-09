@@ -5,6 +5,7 @@ import { Container } from "../styledComponents";
 import { useNavigate } from 'react-router-dom';
 import { ButtonMediumOutline, ButtonMediumPrimary, PrevNextContainer } from "../styledComponents";
 import { Form } from "react-bootstrap";
+import Loading from "../pages/Loading";
 
 export default function UploadCall() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function UploadCall() {
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,18 +67,55 @@ export default function UploadCall() {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'multipart/form-data',
+          "Access-Control-Allow-Origin": "*",
         },
         withCredentials: true,
       });
   
       if (response.status === 200) {
-        console.log('File uploaded successfully!');
+        console.log('File uploaded successfully!', response.data);
+        const audioFilePath = response.data.audio_file_path;
+        sendToInference(audioFilePath);
       } else {
         console.error('Failed to upload file.');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error uploading:', error);
     } 
+  }
+
+  const sendToInference = async (audioFilePath) => {
+    const audioFilePathData = new FormData();
+    audioFilePathData.append('audio_file_path', audioFilePath);
+    
+    console.log(audioFilePath);
+    for (var pair of audioFilePathData.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]); 
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await axios.post('/inference', audioFilePathData, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          "Access-Control-Allow-Origin": "*",
+        },
+        withCredentials: true,
+      });
+        if (response.status === 200) {
+          console.log("Post request successfully sent to Inference");
+          console.log('Inference Result:', response.data);
+          navigate(`/check/${response.data.conversation_id}`);
+        } else {
+          console.error('Failed to perform inference.');
+        }
+    } catch (error) {
+      console.error("Error sending post request for inference", error.response.data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -85,6 +124,8 @@ export default function UploadCall() {
       <Title>Upload Call</Title>
       <Desc>상담 업로드하기</Desc>
       <Notice>*표시는 필수입력항목 입니다.</Notice>
+
+      {loading && <LoadingComponent />}
 
       <Form>
         <CustomFormGroup controlId="formName" label="고객명" isRequired>
@@ -139,7 +180,9 @@ export default function UploadCall() {
     </Container>
   );
 }
-
+const LoadingComponent = () => {
+  <div>Loading...</div>
+}
 const CustomFormGroup = ({ controlId, label, isRequired, children }) => {
   return (
     <Form.Group style={{ marginBottom: "32px", width: "508px" }} controlId={controlId}>

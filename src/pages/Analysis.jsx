@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "../axios.js";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Container } from "../styledComponents";
 import { Nav } from "react-bootstrap";
@@ -21,7 +22,6 @@ const ChatMessage = ({ content, name, dateTime, avatar, type }) => {
       <ChatMessageWhite content={content} name={name} dateTime={dateTime} avatar={avatar} />
   );
 };
-
 
 export default function Analysis() {
   const navigate = useNavigate();
@@ -97,6 +97,25 @@ export default function Analysis() {
       "type": "customer"
     },
   ];
+
+  const getConversationData = async() => {
+    try {
+      const response = await axios.get(`/check/${id}`, {
+        headers: {
+          'Accept': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+        },
+        withCredentials: true,
+      });
+      console.log('Conversation data retrieved successfully', response.data);
+      // set variables
+  
+    } catch (error) {
+      console.error('Error retrieving conversation data: ', error);
+    } 
+  }
+  
+  getConversationData();
   
   return (
     <>
