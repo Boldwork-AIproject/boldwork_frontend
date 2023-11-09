@@ -9,6 +9,7 @@ import { PrevNextContainer, ButtonLargePrimary, ButtonLargeOutline } from "../st
 import ScoreBoxes from '../components/scoreBoxes';
 import Table from '../components/table';
 import { LineChart } from '@mui/x-charts';
+import KeywordCloud from "../components/KeywordCloud";
 
 const getMessageType = (type) => {
   return type === "consultant" ? "purple" : "white";
@@ -294,7 +295,9 @@ export default function Analysis() {
         )}
         {selectedNavItem === 'link-2' && selectedNavItem2 === 'keyword' && (
           <div style={BlockContainer}>
-            <div style={Block}><div>Keyword</div></div>
+            <div style={Block}>
+              <KeywordCloud />
+            </div>
             <div style={Block}>
               <Table data={keyword_data} columns={keyword_column} />
             </div>
