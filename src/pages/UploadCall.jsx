@@ -21,6 +21,7 @@ export default function UploadCall() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log("Value of textbox: ", value);
     //console.log(`Before update(customerData): ${name} = ${customerData[name]}`);
     setCustomerData((customerData) => ({ ...customerData, [name]: value }));
     //console.log(`After update: ${name} = ${value}`);
@@ -58,15 +59,16 @@ export default function UploadCall() {
 
       <Form>
         <CustomFormGroup controlId="formName" label="고객명" isRequired>
-          <Form.Control style={{ height: "48px" }} onChange={handleChange} placeholder="고객명을 입력해주세요." />
+          <Form.Control name="name" style={{ height: "48px" }} onChange={handleChange} placeholder="고객명을 입력해주세요." />
         </CustomFormGroup>
 
         <CustomFormGroup controlId="formPhone" label="전화번호" isRequired>
-          <Form.Control style={{ height: "48px" }} onChange={handleChange} placeholder="전화번호를 입력해주세요." />
+          <Form.Control name="phone" style={{ height: "48px" }} onChange={handleChange} placeholder="전화번호를 입력해주세요." />
         </CustomFormGroup>
 
         <CustomFormGroup controlId="formBirthday" label="생년월일">
           <Form.Control
+            name="birthday"
             style={{ height: "48px" }}
             onChange={handleChange} 
             placeholder="생년월일 6자리를 입력해주세요.(예: 970503)"
@@ -74,10 +76,10 @@ export default function UploadCall() {
         </CustomFormGroup>
 
         <CustomFormGroup controlId="formEmail" label="이메일">
-          <Form.Control style={{ height: "48px" }} type="email" onChange={handleChange} placeholder="이메일을 입력해주세요." />
+          <Form.Control name="email" style={{ height: "48px" }} type="email" onChange={handleChange} placeholder="이메일을 입력해주세요." />
         </CustomFormGroup>
 
-        <CustomFormGroup controlId="formID" label="성별" isRequired>
+        <CustomFormGroup controlId="formGender" label="성별" isRequired>
           <Form>
             {['radio'].map((type) => (
               <div key={`inline-${type}`} className="mb-3">
@@ -91,7 +93,7 @@ export default function UploadCall() {
 
         <CustomFormGroup controlId="formFileUpload" label="첨부 파일" isRequired>
           <div style={InputFieldStyle}>
-            <Form.Control style={{ height: "48px", flex: "1", width: "281px", border: "none" }} placeholder={selectedFile ? selectedFile.name : "파일을 업로드해주세요."} readOnly />
+            <Form.Control name="file" style={{ height: "48px", flex: "1", width: "281px", border: "none" }} placeholder="파일을 업로드해주세요." value={ selectedFile ? selectedFile.name : "" } onChange={handleChange} readOnly />
             <img src="/icons/Link.svg" alt="Link Icon" style={UploadFileButtonStyle} onClick={handleIconClick} />
             <input type="file" accept="audio/*" style={{ display: "none" }} ref={fileInputRef} onChange={handleFileChange} />
           </div>

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "../axios.js";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "../styledComponents";
 import styled from "styled-components";
@@ -10,9 +11,9 @@ import FilterModalLong from "../components/FilterModalLong";
 
 export default function CheckCall() {
   const navigate = useNavigate();
-  const pages = [1, 2, 3, 4];
-  
-  const [selectedPage, setSelectedPage] = useState(1);
+  const [pages, setPages] = useState([1, 2, 3, 4]);
+  const [totalPage, setTotalPage] = useState(4);
+  const [selectedPage, setSelectedPage] = useState("1");
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([
     {
@@ -58,9 +59,44 @@ export default function CheckCall() {
       categories: ["반품문의", "배송지연"],
     },
   ]);
+
   const handleDelete = (idToDelete) => {
     setData(data.filter((item) => item.id !== idToDelete));   
   };
+
+  
+  // get customer data from /info
+  // due to internal server error (500)
+  const getCustomerList = async (page) => {
+    try {
+      const response = await axios.get(`/info/?page=${page}`, {
+        withCredentials: true,
+      });
+
+      console.log(response.data);
+      const { message, totalPage, data: responseData } = response.data;
+      const transformedData = responseData.map(({ customer_id, customer_name, customer_phone }) => ({
+        id: customer_id,
+        name: customer_name,
+        phone: customer_phone,
+        time: "2023. 09. 02 16:02",
+        categories: ["반품문의", "배송지연"],
+        // add dummy data for time, categories
+      }));
+
+      setData(transformedData);
+      setTotalPage(totalPage);
+      setPages([...Array(totalPage).keys()].map((el) => el + 1));
+
+    } catch (error) {
+      console.error('Error fetching customer list:', error);
+    }
+  };
+
+  useEffect(() => {
+    getCustomerList(selectedPage);
+  }, [selectedPage]);
+
   return (
     <Container>
       {showModal ? (
