@@ -63,9 +63,19 @@ export default function MyPage() {
 
     console.log("updated User Data: ", updatedUserData);
 
-    axios.put('/mypage/', updatedUserData, {
+    const formDataToSend = new FormData();
+    formDataToSend.append('email', updatedUserData.email);
+    formDataToSend.append('password', updatedUserData.password);
+    formDataToSend.append('name', updatedUserData.name);
+    formDataToSend.append('phone', updatedUserData.phone);
+    formDataToSend.append('birthday', updatedUserData.birthday);
+
+    //todo
+    axios.put('/mypage/', formDataToSend, {
       headers: {
         'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        "Access-Control-Allow-Origin": "*",
       },
       withCredentials: true,
     })
