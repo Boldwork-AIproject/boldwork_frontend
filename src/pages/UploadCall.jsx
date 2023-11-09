@@ -1,3 +1,4 @@
+import axios from '../axios.js';
 import React, { useState } from 'react';
 import styled from "styled-components";
 import { Container } from "../styledComponents";
@@ -21,7 +22,8 @@ export default function UploadCall() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log("Value of textbox: ", value);
+    //console.log("Value of textbox: ", value);
+
     //console.log(`Before update(customerData): ${name} = ${customerData[name]}`);
     setCustomerData((customerData) => ({ ...customerData, [name]: value }));
     //console.log(`After update: ${name} = ${value}`);
@@ -37,6 +39,8 @@ export default function UploadCall() {
       console.log(uploadedFile.name);
       setSelectedFile(uploadedFile);
 
+      setCustomerData((customerData) => ({ ...customerData, file: uploadedFile }));
+
       //customerData.file = selectedFile;
       //console.log("Customer Data File: ", customerData.file);
     }
@@ -46,8 +50,33 @@ export default function UploadCall() {
     fileInputRef.current.click();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(customerData);
+    const formData = new FormData();
+    formData.append('name', customerData.name);
+    formData.append('phone', customerData.phone);
+    formData.append('birthday', customerData.birthday);
+    formData.append('email', customerData.email);
+    formData.append('gender', customerData.gender);
+    formData.append('audio_file', customerData.file);
+
+    try {
+      const response = await axios.post('/upload', formData, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+      });
+  
+      if (response.status === 200) {
+        console.log('File uploaded successfully!');
+      } else {
+        console.error('Failed to upload file.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    } 
   }
 
   return (
