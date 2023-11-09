@@ -5,15 +5,15 @@ import {
   } from "@tanstack/react-table"
   import styled from "@emotion/styled"
   import { Fragment } from "react"
-  
+
   function Table(props) {
-    const { useMinHeight = true, data, columns, noDataMessage } = props
+    const { data, columns, noDataMessage } = props
     const table = useReactTable({
       data,
       columns,
       getCoreRowModel: getCoreRowModel()
     })
-  
+    
     const { getHeaderGroups, getRowModel } = table
   
     const isNoData = getRowModel().rows.length === 0
@@ -34,9 +34,9 @@ import {
             )}
           </TableHeader>
         ))}
-        <TableBody useMinHeight={useMinHeight}>
+        <TableBody>
           {isNoData ? (
-            <NoDataComponent useMinHeight={useMinHeight}>
+            <NoDataComponent>
               {noDataMessage}
             </NoDataComponent>
           ) : (
@@ -67,7 +67,6 @@ import {
     font-size: 14px;
     text-align: center;
 
-
     .row {
       width: 100%;
       display: flex;
@@ -76,18 +75,20 @@ import {
     .headerrow{
       width: 100%;
       display: flex;
+      margin-top: -5px;
       border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
     }
     }
   `
 
   const TableCell = styled.div`
-    width: ${({ width }) => width}px;
+    width: 122px;
     padding: 16px;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
     align-items: center;
     word-break: break-all;
+    text-align: center;
     justify-content: center;
   `
   
@@ -102,16 +103,21 @@ import {
   `
   
   const TableBody = styled.div`
-    min-height: ${({ useMinHeight }) => (useMinHeight ? "560px" : "auto")};
     display: flex;
     flex-direction: column;
   `
   
   const NoDataComponent = styled.div`
     width: 100%;
-    height: ${({ useMinHeight }) => (useMinHeight ? "560px" : "auto")};
+    height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
   `
-  
+  const Tags = styled.span`
+  background-color: #00d82c;
+  color: #fff;
+  font-size: 1.2rem;
+  margin: 0 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: 3rem;
+`;

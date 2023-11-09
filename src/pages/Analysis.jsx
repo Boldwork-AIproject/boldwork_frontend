@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
@@ -6,6 +6,9 @@ import ChatMessagePurple from "../components/ChatMessagePurple";
 import ChatMessageWhite from "../components/ChatMessageWhite";
 import Player from "../components/Player";
 import { PrevNextContainer, ButtonLargePrimary, ButtonLargeOutline } from "../styledComponents";
+import ScoreBoxes from '../components/scoreBoxes';
+import Table from '../components/table';
+import {LineChart} from '@mui/x-charts';
 
 const getMessageType = (type) => {
   return type === "consultant" ? "purple" : "white";
@@ -134,11 +137,11 @@ export default function Analysis() {
     {
       id: "emotion",
       header: "감정지표",
-      accessorFn: row => row.emotion
+      accessorFn: row => row.emotion,
     }
   ]
 
-  const [emotion_data, setData] = useState([
+  const emotion_data=[
     {
       id: 0,
       date: "2022.08.15",
@@ -163,21 +166,7 @@ export default function Analysis() {
       name: "오미향",
       emotion: "주의"
     }
-  ]);
-
-  const [newDataArray, setNewDataArray] = useState([]);
-
-  useEffect(() => {
-    // Add new data to the new data array
-    setNewDataArray([...newDataArray, emotion_data[emotion_data.length - 1]]);
-
-    // If the new data array has reached four elements, replace the existing data array with this new array
-    if (newDataArray.length === 4) {
-      setData(newDataArray);
-      setNewDataArray([]);
-    }
-  }, [emotion_data]);
-
+  ];
 
   return (
     <>
@@ -251,10 +240,10 @@ export default function Analysis() {
                 <div style={Block3}>
                   <div style={Block4}>
                     <div style={{ color: "#000", fontSize: "13px", fontWeight: "bold", height: "5px" }}>이번 상담 지수는..</div>
-                    <span>
-                      <span style={{ fontSize: "81px", fontWeight: "bold", height: "69px" }}>87</span>
+                    <div style={{height:"105px"}}>
+                      <span style={{ fontSize: "81px", fontWeight: "bold", height: "69px", letterSpacing:"-1.5px" }}>87</span>
                       <span style={{ fontSize: "31px", paddingLeft: "1px" }}>점</span>
-                    </span>
+                    </div>
                     <Button2>양 호</Button2>
                   </div>
                   <div style={Block5}>
@@ -377,6 +366,7 @@ const Block = {
 }
 const Block2 = {
   display: "flex",
+  flexDirection:"column",
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "white",
@@ -389,22 +379,17 @@ const Block2 = {
 const Block3 = {
   display: "flex",
   flexDirection: "row",
-  justifyContent: "start",
-  alignItems: "flex-start",
-  backgroundColor: "white",
-  border: "1px solid var(--neutral-20)",
-  width: 455,
-  height: 180,
-}
-const Block4 = {
-  display: "inline-block",
   justifyContent: "center",
   alignItems: "center",
-  backgroundColor: "white",
-  border: "1px solid var(--neutral-20)",
+  width: 455,
+  height: 200,
+}
+const Block4 = {
+  display: "block",
+  justifyContent: "center",
+  alignItems: "center",
   width: 130,
-  height: 150,
-  padding: "0% 5% 5% 5%",
+  height: 160,
 }
 const Block5 = {
   display: "flex",
@@ -412,11 +397,9 @@ const Block5 = {
   justifyContent: "space-between",
   alignItems: "center",
   backgroundColor: "white",
-  border: "1px solid var(--neutral-20)",
   width: 260,
   height: 150,
-
-  borderRadius: 8,
+  paddingLeft: 25,
 }
 const Block6 = {
   display: "block",
@@ -426,11 +409,11 @@ const Block6 = {
   border: "1px solid var(--neutral-20)",
   boxShadow: "0px 2px 4px 0px rgba(0, 0, 0, 0.25)",
 
-  width: 435,
-  height: 290,
+  width: 409,
+  height: 277,
   borderRadius: 8,
-  marginBottom: 39,
-  padding: 20,
+  marginBottom: 32,
+  padding: 10,
 }
 const Summary = {
   backgroundColor: "var(--neutral-80)",

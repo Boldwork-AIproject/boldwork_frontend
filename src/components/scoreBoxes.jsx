@@ -25,9 +25,9 @@ const Scorebox = (props) => (
 
 const ScoreBoxes = () => {
     const dataset = [
-      { key: '대화 참여도', score: '80' },
-      { key: '비속어 빈도', score: '10' },
-      { key: '호의적 어조', score: '70' }
+      { key: '대화 참여도 ', score: '80' },
+      { key: '비속어 빈도 ', score: '10' },
+      { key: '호의적 어조 ', score: '70' }
     ];
   
     return (
