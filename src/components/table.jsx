@@ -75,14 +75,14 @@ import {
     .headerrow{
       width: 100%;
       display: flex;
-      margin-top: -5px;
+      margin-top: -2px;
       border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
     }
     }
   `
 
   const TableCell = styled.div`
-    width: 122px;
+    flex:1;
     padding: 16px;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
@@ -96,6 +96,7 @@ import {
     &:hover {
       background-color: rgba(0, 0, 0, 0.04);
     }
+    height:100%;
   `
   
   const TableHeader = styled.div`
@@ -105,6 +106,7 @@ import {
   const TableBody = styled.div`
     display: flex;
     flex-direction: column;
+    height:100%;
   `
   
   const NoDataComponent = styled.div`

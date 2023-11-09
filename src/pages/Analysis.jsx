@@ -8,7 +8,7 @@ import Player from "../components/Player";
 import { PrevNextContainer, ButtonLargePrimary, ButtonLargeOutline } from "../styledComponents";
 import ScoreBoxes from '../components/scoreBoxes';
 import Table from '../components/table';
-import {LineChart} from '@mui/x-charts';
+import { LineChart } from '@mui/x-charts';
 
 const getMessageType = (type) => {
   return type === "consultant" ? "purple" : "white";
@@ -102,32 +102,24 @@ export default function Analysis() {
 
   const dataset = [
     {
-      date: "2022.07.30",
+      date: "2022.08.15",
+      score: 82
+    },
+    {
+      date: "2022.09.21",
       score: 70
     },
     {
-      date: "2022.08.10",
-      score: 55
+      date: "2022.10.05",
+      score: 90
     },
     {
-      date: "2022.09.20",
-      score: 62
-    },
-    {
-      date: "2022.10.15",
-      score: 86
-    },
-    {
-      date: "2022.11.21",
-      score: 63
-    },
-    {
-      date: "2022.12.16",
+      date: "2022.11.25",
       score: 59
     },
     {
       date: "2023.01.18",
-      score: 73
+      score: 87
     },
   ]
 
@@ -141,7 +133,7 @@ export default function Analysis() {
     }
   ]
 
-  const emotion_data=[
+  const emotion_data = [
     {
       id: 0,
       date: "2022.08.15",
@@ -152,21 +144,95 @@ export default function Analysis() {
       id: 1,
       date: "2022.09.21",
       name: "오미향",
-      emotion: "주의"
+      emotion: "보통"
     },
     {
       id: 2,
-      date: "2022.08.15",
+      date: "2022.10.05",
       name: "김철수",
       emotion: "양호"
     },
     {
       id: 3,
-      date: "2022.09.21",
+      date: "2022.11.25",
       name: "오미향",
       emotion: "주의"
     }
   ];
+
+  const keyword_column = [
+    {
+      id: "rank",
+      header: "순위",
+      accessorFn: row => row.rank,
+    },
+    {
+      id: "word",
+      header: "단어",
+      accessorFn: row => row.word,
+    },
+    {
+      id: "freq",
+      header: "빈도(회)",
+      accessorFn: row => row.freq,
+    },
+    {
+      id: "fluc",
+      header: "증가율(%)",
+      accessorFn: row => row.fluc,
+    }
+  ]
+  const keyword_data = [
+    {
+      id: 0,
+      rank: 1,
+      word: "보험료",
+      freq: 15,
+      fluc: 50,
+    },
+    {
+      id: 1,
+      rank: 2,
+      word: "건강",
+      freq: 12,
+      fluc: 75,
+    },
+    {
+      id: 2,
+      rank: 3,
+      word: "자동차",
+      freq: 8,
+      fluc: 50,
+    },
+    {
+      id: 3,
+      rank: 4,
+      word: "교통사고",
+      freq: 6,
+      fluc: 80,
+    },
+    {
+      id: 4,
+      rank: 5,
+      word: "주소지 이전",
+      freq: 4,
+      fluc: 60,
+    },
+    {
+      id: 5,
+      rank: 6,
+      word: "계약금",
+      freq: 2,
+      fluc: 50,
+    },
+    {
+      id: 6,
+      rank: 7,
+      word: "계약해지",
+      freq: 1,
+      fluc: 100,
+    }
+  ]
 
   return (
     <>
@@ -229,7 +295,9 @@ export default function Analysis() {
         {selectedNavItem === 'link-2' && selectedNavItem2 === 'keyword' && (
           <div style={BlockContainer}>
             <div style={Block}><div>Keyword</div></div>
-            <div style={Block}><div>Keyword Ranking</div></div>
+            <div style={Block}>
+              <Table data={keyword_data} columns={keyword_column} />
+            </div>
           </div>
         )}
         {selectedNavItem === 'link-2' && selectedNavItem2 === 'index' && (
@@ -240,8 +308,8 @@ export default function Analysis() {
                 <div style={Block3}>
                   <div style={Block4}>
                     <div style={{ color: "#000", fontSize: "13px", fontWeight: "bold", height: "5px" }}>이번 상담 지수는..</div>
-                    <div style={{height:"105px"}}>
-                      <span style={{ fontSize: "81px", fontWeight: "bold", height: "69px", letterSpacing:"-1.5px" }}>87</span>
+                    <div style={{ height: "105px" }}>
+                      <span style={{ fontSize: "81px", fontWeight: "bold", height: "69px", letterSpacing: "-1.5px" }}>87</span>
                       <span style={{ fontSize: "31px", paddingLeft: "1px" }}>점</span>
                     </div>
                     <Button2>양 호</Button2>
@@ -366,7 +434,7 @@ const Block = {
 }
 const Block2 = {
   display: "flex",
-  flexDirection:"column",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "white",
@@ -382,7 +450,7 @@ const Block3 = {
   justifyContent: "center",
   alignItems: "center",
   width: 455,
-  height: 200,
+  height: 190,
 }
 const Block4 = {
   display: "block",
@@ -410,7 +478,7 @@ const Block6 = {
   boxShadow: "0px 2px 4px 0px rgba(0, 0, 0, 0.25)",
 
   width: 409,
-  height: 277,
+  height: 280,
   borderRadius: 8,
   marginBottom: 32,
   padding: 10,
