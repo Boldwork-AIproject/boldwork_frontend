@@ -16,7 +16,7 @@ export default function RadioWithLabel({ text, star, value, setValue, placeholde
                           label="모름"
                           type="radio"
                           name="group1"
-                          checked={value === "모름"} // Check if the value matches the radio option
+                          checked={value === "모름" || value === ""} // Check if the value matches the radio option
                           onChange={() => setValue("모름")} // Update value to "모름"
                       />
                       <Form.Check
@@ -24,16 +24,16 @@ export default function RadioWithLabel({ text, star, value, setValue, placeholde
                           label="남"
                           type="radio"
                           name="group1"
-                          checked={value === "남"} // Check if the value matches the radio option
-                          onChange={() => setValue("남")} // Update value to "남"
+                          checked={value === "남성"} // Check if the value matches the radio option
+                          onChange={() => setValue("남성")} // Update value to "남성"
                       />
                       <Form.Check
                           inline
                           label="여"
                           type="radio"
                           name="group1"
-                          checked={value === "여"} // Check if the value matches the radio option
-                          onChange={() => setValue("여")} // Update value to "여"
+                          checked={value === "여성"} // Check if the value matches the radio option
+                          onChange={() => setValue("여성")} // Update value to "여성"
                       />
                   </div>
               </Form.Group>

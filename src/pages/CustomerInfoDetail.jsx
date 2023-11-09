@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "../axios.js";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Container } from "../styledComponents";
@@ -15,6 +16,52 @@ export default function CustomerInfoDetail() {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState(null);
   const [memo, setMemo] = useState("");
+
+  const [initialData, setInitialData] = useState({
+    name: "",
+    phone: "",
+    birthday: "",
+    email: "",
+    gender: null,
+    memo: ""
+  });
+
+  const getCustomerInfo = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/info/${id}`, {
+        withCredentials: true,
+      });
+
+      const { message, data } = response.data;
+      console.log(response.data);
+
+      setInitialData(data);
+
+      setName(data.name);
+      setPhone(data.phone);
+      setBirth(data.birthday);
+      setEmail(data.email);
+      setGender(data.gender);
+      setMemo(data.memo);
+
+    } catch (error) {
+      console.error('Error fetching customer info:', error);
+    }
+  };
+
+  useEffect(() => {
+    getCustomerInfo();
+  }, [id]);
+
+  const resetToInitialValues = () => {
+    setName(initialData.name);
+    setPhone(initialData.phone);
+    setBirth(initialData.birthday);
+    setEmail(initialData.email);
+    setGender(initialData.gender);
+    setMemo(initialData.memo);
+  };
+
   return (
     <Container>
       <Title>Customer Info.</Title>
@@ -58,16 +105,7 @@ export default function CustomerInfoDetail() {
         />
       </InputsWrapper>
       <ButtonsWrapper>
-        <Button1
-          onClick={() => {
-            setName("");
-            setPhone("");
-            setBirth("");
-            setEmail("");
-            setGender(null);
-            setMemo("");
-          }}
-        >
+        <Button1 onClick={resetToInitialValues}>
           초기화
         </Button1>
         <Button2 onClick={() => {}}>저장하기</Button2>
