@@ -22,6 +22,7 @@
     "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.0.9",
+    "TagCloud": "^2.4.0",
     "three": "^0.158.0",
     "three-bmfont-text": "^3.0.1",
     "wavesurfer.js": "^7.4.2",
