@@ -96,6 +96,11 @@ export default function UploadCall() {
     try {
       setLoading(true);
 
+      while(loading === true) {
+        console.log("Loading...");
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+
       const response = await axios.post('/inference', audioFilePathData, {
         headers: {
           'Accept': 'application/json',
@@ -119,13 +124,15 @@ export default function UploadCall() {
   }
 
   return (
+    <>
+    {loading ? ( <Loading /> ) : (
     <Container>
 
       <Title>Upload Call</Title>
       <Desc>상담 업로드하기</Desc>
       <Notice>*표시는 필수입력항목 입니다.</Notice>
 
-      {loading && <LoadingComponent />}
+      
 
       <Form>
         <CustomFormGroup controlId="formName" label="고객명" isRequired>
@@ -178,10 +185,9 @@ export default function UploadCall() {
     </PrevNextContainer>
 
     </Container>
+    )}
+    </>
   );
-}
-const LoadingComponent = () => {
-  <div>Loading...</div>
 }
 const CustomFormGroup = ({ controlId, label, isRequired, children }) => {
   return (

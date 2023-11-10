@@ -57,6 +57,7 @@ export default function Analysis() {
     ],
     "badwords": 0,
     "keywords": [],
+    "whole_keywords": [],
     "sentiment": [],
     "favorable_tone_score": 0,
     "speech_participation_score": 0,
@@ -123,7 +124,14 @@ export default function Analysis() {
       "avatar": "avatar2.png",
       "type": "customer"
     },
-  ];
+  ]);
+
+  const [date, setDate] = useState('2023. 10. 12 ');
+
+  const formatTimeStamp = (timestamp) => {
+    const timeStamp = date + timestamp;
+    return timeStamp;
+  }
 
   const dataset = [
     {
@@ -257,8 +265,7 @@ export default function Analysis() {
       freq: 1,
       fluc: 100,
     }
-  ]
-  ]);
+  ];
 
   const getConversationData = async() => {
     try {
@@ -277,6 +284,7 @@ export default function Analysis() {
         "messages": data.messages,
         "badwords": data.badwords,
         "keywords": data.keywords,
+        "whole_keywords": data.whole_keywords,
         "sentiment": data.sentiment,
         "favorable_tone_score": data.favorable_tone_score,
         "speech_participation_score": data.speech_participation_score,
@@ -328,29 +336,7 @@ export default function Analysis() {
             <Nav.Link eventKey="link-2">상담 분석</Nav.Link>
           </Nav.Item>
         </Nav>
-        {selectedNavItem === 'link-1' && (
-          <div style={{ marginBottom: 60 }}>
-            {data.map((message, index) => (
-              <ChatMessage
-                key={index}
-                content={message.content}
-                name={message.name}
-                dateTime={message.dateTime}
-                avatar={message.avatar}
-                type={message.type}
-              />
-            ))}
-          </div>)}
-        {selectedNavItem === 'link-1' && <Player />}
-        {selectedNavItem === 'link-2' && (
 
-          <div class="customer-consultation-info" style={{ display: "flex", flexDirection: "column", maxWidth: 1040, marginBottom: 61 }}>
-            <div class="customer-info" style={{ marginTop: 40, marginBottom: 61 }}>
-              <div style={{ fontSize: "var(--body-4)", color: "#666666" }}>2023. 09. 02 16:01</div>
-              <h2 style={{ marginTop: 8, fontWeight: "bold" }}>
-                <span style={{ color: "var(--primary-100)" }}>권준수</span>
-                <span style={{ marginLeft: 8 }}>고객님과의 콜상담</span>
-      </Nav>
       { selectedNavItem === 'link-1' && (
       <div style={{marginBottom: 60}}>
             {conversationData.map((message, index) => (
@@ -364,6 +350,7 @@ export default function Analysis() {
                 />
             ))}
       </div>)}
+
       { selectedNavItem === 'link-1' && <Player audio_file={inferredData.audio_file} />}
       { selectedNavItem === 'link-2' && (
         
@@ -371,7 +358,7 @@ export default function Analysis() {
             <div class="customer-info" style={{marginTop: 40, marginBottom: 61}}>
               <div style={{fontSize: "var(--body-4)", color: "#666666"}}>2023. 09. 02 16:01</div>
               <h2 style={{marginTop: 8, fontWeight: "bold"}}>
-                <span style={{color: "var(--primary-100)"}}>권준수</span>
+                <span style={{color: "var(--primary-100)"}}>{inferredData.customer_name}</span>
                 <span style={{marginLeft: 8}}>고객님과의 콜상담</span>
               </h2>
               <div>
@@ -381,7 +368,7 @@ export default function Analysis() {
             </div>
             <div style={{marginBottom: "-40px"}}><Player audio_file={inferredData.audio_file}/></div>
             <h3 style={{fontWeight: "bold", marginBottom: 15}}>한줄 요약</h3>
-            <div style={Summary}>주문한지 10일이 지났으나 배송지연으로 취소됨. 알림톡으로 인증번호 발송 실패 후 SMS 대체발송. 클레임 정도 상 --&gt; 하로 하향시킴. 현재 해결 완료. 조심해야 할 필요성이 보임.</div>
+            <div style={Summary}>{inferredData.summary}</div>
           </div>
         )}
 
@@ -458,6 +445,7 @@ export default function Analysis() {
     </>
   );
 }
+
 const Title = styled.p`
   margin: 0;
   margin-top: 80px;
