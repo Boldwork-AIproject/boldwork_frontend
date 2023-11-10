@@ -37,9 +37,32 @@ export default function Analysis() {
     setSelectedNavItem2(eventKey);
   }
 
+  // change type to role
+  // create dateTime (date + timestamp)
+  // 
 
   const { id } = useParams();
-  const data = [
+  const [inferredData, setInferredData] = useState({
+    "audio_file": "",
+    "messages": [
+      {
+        "role": "",
+        "text": "",
+        "timestamp": "",
+      },
+    ],
+    "badwords": 0,
+    "keywords": [],
+    "sentiment": [],
+    "favorable_tone_score": 0,
+    "speech_participation_score": 0,
+    "summary": "",
+    "consultant_name": "",
+    "customer_name": "",
+    "previous_sentiment": []
+  });
+  
+  const [conversationData, setConversationData] = useState([
     {
       "content": "네, 고객님. 볼드워크 상담사 캐서린입니다. 문의 도와드리겠습니다.",
       "name": "캐서린",
@@ -96,7 +119,7 @@ export default function Analysis() {
       "avatar": "avatar2.png",
       "type": "customer"
     },
-  ];
+  ]);
 
   const getConversationData = async() => {
     try {
@@ -108,15 +131,51 @@ export default function Analysis() {
         withCredentials: true,
       });
       console.log('Conversation data retrieved successfully', response.data);
+      const { data } = response.data;
       // set variables
+      setInferredData({
+        "audio_file": data.audio_file,
+        "messages": data.messages,
+        "badwords": data.badwords,
+        "keywords": data.keywords,
+        "sentiment": data.sentiment,
+        "favorable_tone_score": data.favorable_tone_score,
+        "speech_participation_score": data.speech_participation_score,
+        "summary": data.summary,
+        "consultant_name": data.consultant_name,
+        "customer_name": data.customer_name,
+        "previous_sentiment": data.previous_sentiment
+      });
   
     } catch (error) {
       console.error('Error retrieving conversation data: ', error);
     } 
   }
   
-  getConversationData();
+  useEffect(() => {
+    getConversationData();
+  }, [id]);
+
+  useEffect(() => {
+    console.log("Inferred data:", inferredData);
+    const { messages, customer_name, consultant_name } = inferredData;
+
+    const transformedData = messages.map(({ role, text, timestamp }) => ({
+      content: text,
+      name: role === "SPEAKER 1" ? consultant_name : customer_name,
+      dateTime: timestamp,
+      avatar: "avatar1.png", // Assuming avatar is constant or has a default value
+      type: role === "SPEAKER 1" ? "consultant" : "customer",
+    }));
+    
+    setConversationData(transformedData);
+  }, [inferredData]);
+
+  useEffect(() => {
+    console.log("Conversation Data: ", conversationData);
+  }, [conversationData]);
   
+ 
   return (
     <>
     <Container>
@@ -133,7 +192,7 @@ export default function Analysis() {
       </Nav>
       { selectedNavItem === 'link-1' && (
       <div style={{marginBottom: 60}}>
-            {data.map((message, index) => (
+            {conversationData.map((message, index) => (
                 <ChatMessage
                     key={index}
                     content={message.content}
@@ -144,7 +203,7 @@ export default function Analysis() {
                 />
             ))}
       </div>)}
-      { selectedNavItem === 'link-1' && <Player />}
+      { selectedNavItem === 'link-1' && <Player audio_file={inferredData.audio_file} />}
       { selectedNavItem === 'link-2' && (
         
           <div class="customer-consultation-info" style={{display: "flex", flexDirection: "column", maxWidth: 1040, marginBottom: 61}}>
@@ -159,7 +218,7 @@ export default function Analysis() {
                 <span style={{marginLeft: 14}}>요약내용은 더 정확하게 편집이 가능합니다.</span>
               </div>
             </div>
-            <div style={{marginBottom: "-40px"}}><Player /></div>
+            <div style={{marginBottom: "-40px"}}><Player audio_file={inferredData.audio_file}/></div>
             <h3 style={{fontWeight: "bold", marginBottom: 15}}>한줄 요약</h3>
             <div style={Summary}>주문한지 10일이 지났으나 배송지연으로 취소됨. 알림톡으로 인증번호 발송 실패 후 SMS 대체발송. 클레임 정도 상 --&gt; 하로 하향시킴. 현재 해결 완료. 조심해야 할 필요성이 보임.</div>
           </div>
