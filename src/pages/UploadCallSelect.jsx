@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Container } from "../styledComponents";
 
 export default function UploadCallSelect() {
   const navigate = useNavigate();
@@ -41,15 +42,6 @@ export default function UploadCallSelect() {
     </Container>
   );
 }
-const Container = styled.div`
-  width: 100vw;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background: var(--background-5, #fafaff);
-`;
 const Title = styled.p`
   margin: 0;
   margin-top: 80px;

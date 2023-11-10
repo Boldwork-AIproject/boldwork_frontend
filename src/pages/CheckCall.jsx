@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import axios from "../axios.js";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Container } from "../styledComponents";
 import styled from "styled-components";
 import filterImg from "../assets/filter.svg";
 import arrowLeft from "../assets/arrow-left.svg";
@@ -9,9 +11,9 @@ import FilterModalLong from "../components/FilterModalLong";
 
 export default function CheckCall() {
   const navigate = useNavigate();
-  const pages = [1, 2, 3, 4];
-  
-  const [selectedPage, setSelectedPage] = useState(1);
+  const [pages, setPages] = useState([1, 2, 3, 4]);
+  const [totalPage, setTotalPage] = useState(4);
+  const [selectedPage, setSelectedPage] = useState("1");
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([
     {
@@ -57,9 +59,49 @@ export default function CheckCall() {
       categories: ["반품문의", "배송지연"],
     },
   ]);
+
   const handleDelete = (idToDelete) => {
     setData(data.filter((item) => item.id !== idToDelete));   
   };
+
+  const formatDate = (creation_time) => {
+    var date = creation_time.split("T")[0];
+    var time = creation_time.split("T")[1].substring(0, 5);
+    return date + " " + time;
+  }
+
+  // get customer data from inference
+  // (after data is inferred from conversation)
+  // customers must have conversation ids (i.e. 상담내역 있음)
+  const getCustomerList = async (page) => {
+    try {
+      const response = await axios.get(`/check/?page=${page}`, {
+        withCredentials: true,
+      });
+
+      console.log(response.data);
+      const { message, totalPage, data: responseData } = response.data;
+      const transformedData = responseData.map(({ customer_id, customer_name, customer_phone, creation_time, keyword }) => ({
+        id: customer_id,
+        name: customer_name,
+        phone: customer_phone,
+        time: formatDate(creation_time),
+        categories: ["반품문의", "배송지연"],
+      }));
+
+      setData(transformedData);
+      setTotalPage(totalPage);
+      setPages([...Array(totalPage).keys()].map((el) => el + 1));
+
+    } catch (error) {
+      console.error('Error fetching customer list:', error);
+    }
+  };
+
+  useEffect(() => {
+    getCustomerList(selectedPage);
+  }, [selectedPage]);
+
   return (
     <Container>
       {showModal ? (
@@ -120,15 +162,6 @@ export default function CheckCall() {
     </Container>
   );
 }
-const Container = styled.div`
-  width: 100vw;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background: var(--background-5, #fafaff);
-`;
 const Title = styled.p`
   margin: 0;
   margin-top: 80px;

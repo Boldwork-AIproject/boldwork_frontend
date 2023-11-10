@@ -159,15 +159,14 @@ const PlayerOnly = () => {
     )
 }
 
-const Player = () => {
-    const urls = ['/sample_audio/sample_audio.mp3', '/sample_audio/sample_audio2.mp3']
-    const [audioUrl, setAudioUrl] = useState(urls[0])
-  
-    // Swap the audio URL
-    const onUrlChange = useCallback(() => {
-      urls.reverse()
-      setAudioUrl(urls[0])
-    }, [])
+const Player = ({ audio_file }) => {
+  console.log("Player audio: ", audio_file);
+
+  const audioUrl = `http://localhost:8000${audio_file}`;
+  //const audioUrl = `../../backend${audio_file}`;
+  console.log("Edited full audio url: ", audioUrl);
+
+  const sample_audio = '/sample_audio/sample_audio.mp3';
 
     return (
         <WaveSurferPlayer
@@ -178,7 +177,7 @@ const Player = () => {
             barWidth='4'
             barGap='9'
             barRadius='4'
-            url={audioUrl}
+            url={sample_audio}
         />
     );
 }

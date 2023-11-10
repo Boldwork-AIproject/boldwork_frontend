@@ -1,5 +1,16 @@
 import styled from 'styled-components';
 
+/* PAGE LAYOUT */
+export const Container = styled.div`
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--background-5, #fafaff);
+`;
+
 /* BUTTONS */
 export const ButtonBlockPrimary = styled.button`
     background-color: var(--primary-100);
@@ -224,7 +235,7 @@ export const ButtonSmallSecondary = styled.button`
 `
 
 export const PrevNextContainer = styled.div`
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;

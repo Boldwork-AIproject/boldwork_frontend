@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import axios from '../axios.js';
 import React, { useState } from "react";
 import "../App.css";
@@ -5,7 +6,7 @@ import { Container, Form } from "react-bootstrap";
 import { ButtonBlockPrimary, KakaoLabelIcon, NaverLabelIcon } from "../styledComponents"
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
@@ -30,6 +31,12 @@ const Login = () => {
     axios.post('/login', formDataToSend)
       .then((response) => {
         console.log('Login successful', response.data);
+        // saves cookie via front end
+        const accessToken = response.data.access_token;
+        Cookies.set('access_token', accessToken, { expires: 7 }); // Expires in 7 days
+        // sets logged in state in App.js
+        onLogin();
+        navigate("/");
       })
       .catch((error) => {
         console.error('Login failed', error.response.data);
@@ -68,18 +75,21 @@ const Login = () => {
         </p> 
         
         <Container id="social_login" style={socialLoginContainer}>
+          
           <Link to="/kakao-login" style={{textDecoration: "none", color:"inherit"}}>
           <Container id="kakao_login" style={logoContainer}>
             <KakaoLabelIcon />
             <p style={{fontSize:"var(--body-4)", marginTop:"8px"}}>카카오톡으로 시작</p>
           </Container>
           </Link>
+
           <Link to="/naver-login" style={{textDecoration: "none", color:"inherit"}}>
             <Container id="naver_login" style={logoContainer}>
               <NaverLabelIcon />
               <p style={{fontSize:"var(--body-4)", marginTop:"8px"}}>네이버로 시작</p>
             </Container>
           </Link>
+          
         </Container>
       </Container>
     </>

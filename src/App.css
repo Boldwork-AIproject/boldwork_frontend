@@ -168,9 +168,16 @@ nav {
 .nav-link:nth-last-child(2) {
   cursor: default;
 }
+@media only screen and (max-width: 1300px) {
+  .nav-link:nth-last-child(3) {
+    margin-left: 190px;
+  }
+}
+
 
 /* Main Page */
 #main {
+  width: 100%;
   display: flex;
   flex-direction: column;
   position: absolute;

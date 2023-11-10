@@ -1,5 +1,7 @@
+import axios from "../axios.js";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Container } from "../styledComponents";
 import { Nav } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import ChatMessagePurple from "../components/ChatMessagePurple";
@@ -25,7 +27,6 @@ const ChatMessage = ({ content, name, dateTime, avatar, type }) => {
   );
 };
 
-
 export default function Analysis() {
   const navigate = useNavigate();
 
@@ -40,9 +41,32 @@ export default function Analysis() {
     setSelectedNavItem2(eventKey);
   }
 
+  // change type to role
+  // create dateTime (date + timestamp)
+  // 
 
   const { id } = useParams();
-  const data = [
+  const [inferredData, setInferredData] = useState({
+    "audio_file": "",
+    "messages": [
+      {
+        "role": "",
+        "text": "",
+        "timestamp": "",
+      },
+    ],
+    "badwords": 0,
+    "keywords": [],
+    "sentiment": [],
+    "favorable_tone_score": 0,
+    "speech_participation_score": 0,
+    "summary": "",
+    "consultant_name": "",
+    "customer_name": "",
+    "previous_sentiment": []
+  });
+  
+  const [conversationData, setConversationData] = useState([
     {
       "content": "네, 고객님. 볼드워크 상담사 캐서린입니다. 문의 도와드리겠습니다.",
       "name": "캐서린",
@@ -234,7 +258,62 @@ export default function Analysis() {
       fluc: 100,
     }
   ]
+  ]);
 
+  const getConversationData = async() => {
+    try {
+      const response = await axios.get(`/check/${id}`, {
+        headers: {
+          'Accept': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+        },
+        withCredentials: true,
+      });
+      console.log('Conversation data retrieved successfully', response.data);
+      const { data } = response.data;
+      // set variables
+      setInferredData({
+        "audio_file": data.audio_file,
+        "messages": data.messages,
+        "badwords": data.badwords,
+        "keywords": data.keywords,
+        "sentiment": data.sentiment,
+        "favorable_tone_score": data.favorable_tone_score,
+        "speech_participation_score": data.speech_participation_score,
+        "summary": data.summary,
+        "consultant_name": data.consultant_name,
+        "customer_name": data.customer_name,
+        "previous_sentiment": data.previous_sentiment
+      });
+  
+    } catch (error) {
+      console.error('Error retrieving conversation data: ', error);
+    } 
+  }
+  
+  useEffect(() => {
+    getConversationData();
+  }, [id]);
+
+  useEffect(() => {
+    console.log("Inferred data:", inferredData);
+    const { messages, customer_name, consultant_name } = inferredData;
+
+    const transformedData = messages.map(({ role, text, timestamp }) => ({
+      content: text,
+      name: role === "SPEAKER 1" ? consultant_name : customer_name,
+      dateTime: timestamp,
+      avatar: "avatar1.png", // Assuming avatar is constant or has a default value
+      type: role === "SPEAKER 1" ? "consultant" : "customer",
+    }));
+    
+    setConversationData(transformedData);
+  }, [inferredData]);
+
+  useEffect(() => {
+    console.log("Conversation Data: ", conversationData);
+  }, [conversationData]);
+  
   return (
     <>
       <Container>
@@ -271,14 +350,37 @@ export default function Analysis() {
               <h2 style={{ marginTop: 8, fontWeight: "bold" }}>
                 <span style={{ color: "var(--primary-100)" }}>권준수</span>
                 <span style={{ marginLeft: 8 }}>고객님과의 콜상담</span>
+      </Nav>
+      { selectedNavItem === 'link-1' && (
+      <div style={{marginBottom: 60}}>
+            {conversationData.map((message, index) => (
+                <ChatMessage
+                    key={index}
+                    content={message.content}
+                    name={message.name}
+                    dateTime={message.dateTime}
+                    avatar={message.avatar}
+                    type={message.type}
+                />
+            ))}
+      </div>)}
+      { selectedNavItem === 'link-1' && <Player audio_file={inferredData.audio_file} />}
+      { selectedNavItem === 'link-2' && (
+        
+          <div class="customer-consultation-info" style={{display: "flex", flexDirection: "column", maxWidth: 1040, marginBottom: 61}}>
+            <div class="customer-info" style={{marginTop: 40, marginBottom: 61}}>
+              <div style={{fontSize: "var(--body-4)", color: "#666666"}}>2023. 09. 02 16:01</div>
+              <h2 style={{marginTop: 8, fontWeight: "bold"}}>
+                <span style={{color: "var(--primary-100)"}}>권준수</span>
+                <span style={{marginLeft: 8}}>고객님과의 콜상담</span>
               </h2>
               <div>
                 <span style={{ marginTop: 24, fontWeight: "bold" }}>AI 요약</span>
                 <span style={{ marginLeft: 14 }}>요약내용은 더 정확하게 편집이 가능합니다.</span>
               </div>
             </div>
-            <div style={{ marginBottom: "-40px" }}><Player /></div>
-            <h3 style={{ fontWeight: "bold", marginBottom: 15 }}>한줄 요약</h3>
+            <div style={{marginBottom: "-40px"}}><Player audio_file={inferredData.audio_file}/></div>
+            <h3 style={{fontWeight: "bold", marginBottom: 15}}>한줄 요약</h3>
             <div style={Summary}>주문한지 10일이 지났으나 배송지연으로 취소됨. 알림톡으로 인증번호 발송 실패 후 SMS 대체발송. 클레임 정도 상 --&gt; 하로 하향시킴. 현재 해결 완료. 조심해야 할 필요성이 보임.</div>
           </div>
         )}
@@ -356,15 +458,6 @@ export default function Analysis() {
     </>
   );
 }
-const Container = styled.div`
-  width: 100vw;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background: var(--background-5, #fafaff);
-`;
 const Title = styled.p`
   margin: 0;
   margin-top: 80px;

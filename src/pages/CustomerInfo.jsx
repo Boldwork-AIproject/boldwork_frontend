@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import axios from "../axios.js";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Container } from "../styledComponents";
 import filterImg from "../assets/filter.svg";
 import arrowLeft from "../assets/arrow-left.svg";
 import arrowRight from "../assets/arrow-right.svg";
@@ -9,13 +11,14 @@ import FilterModal from "../components/FilterModal";
 
 export default function CustomerInfo() {
   const navigate = useNavigate();
-  const pages = [1, 2, 3, 4];
-  const [selectedPage, setSelectedPage] = useState(1);
+  const [pages, setPages] = useState([1, 2, 3, 4]);
+  const [totalPage, setTotalPage] = useState(4);
+  const [selectedPage, setSelectedPage] = useState("1");
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([
     {
       id: 0,
-      name: "김상호",
+      name: "권준수",
       phone: "010-3948-3106",
     },
     {
@@ -34,9 +37,39 @@ export default function CustomerInfo() {
       phone: "010-2904-4985",
     },
   ]);
+  
   const handleDelete = (idToDelete) => {
     setData(data.filter((item) => item.id !== idToDelete));   
   };
+
+  const getCustomerList = async (page) => {
+    try {
+      const response = await axios.get(`/info/?page=${page}`, {
+        withCredentials: true,
+      });
+
+      console.log(response.data);
+      const { message, totalPage, data: responseData } = response.data;
+      const transformedData = responseData.map(({ customer_id, customer_name, customer_phone }) => ({
+        id: customer_id,
+        name: customer_name,
+        phone: customer_phone,
+      }));
+
+      setData(transformedData);
+      setTotalPage(totalPage);
+      setPages([...Array(totalPage).keys()].map((el) => el + 1));
+
+    } catch (error) {
+      console.error('Error fetching customer list:', error);
+    }
+  };
+
+  useEffect(() => {
+    getCustomerList(selectedPage);
+  }, [selectedPage]);
+  
+
   return (
     <Container>
       {showModal ? (
@@ -83,6 +116,7 @@ export default function CustomerInfo() {
               <PageUnselected
                 onClick={() => {
                   setSelectedPage(el);
+                  //getCustomerList(selectedPage);
                 }}
               >
                 {el}
@@ -95,15 +129,6 @@ export default function CustomerInfo() {
     </Container>
   );
 }
-const Container = styled.div`
-  width: 100vw;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background: var(--background-5, #fafaff);
-`;
 const Title = styled.p`
   margin: 0;
   margin-top: 80px;

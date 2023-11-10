@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import axios from "../axios.js";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Container } from "../styledComponents";
 import InputWithLabel from "../components/InputWithLabel";
 import RadioWithLabel from "../components/RadioWithLabel";
 import TextareaWithLabel from "../components/TextareaWithLabel";
@@ -14,6 +16,86 @@ export default function CustomerInfoDetail() {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState(null);
   const [memo, setMemo] = useState("");
+
+  const [initialData, setInitialData] = useState({
+    name: "",
+    phone: "",
+    birthday: "",
+    email: "",
+    gender: null,
+    memo: ""
+  });
+
+  const getCustomerInfo = async () => {
+    try {
+      const response = await axios.get(`/info/${id}`, {
+        withCredentials: true,
+      });
+
+      const { message, data } = response.data;
+      console.log(response.data);
+
+      setInitialData(data);
+
+      setName(data.name);
+      setPhone(data.phone);
+      setBirth(data.birthday);
+      setEmail(data.email);
+      setGender(data.gender);
+      setMemo(data.memo);
+
+    } catch (error) {
+      console.error('Error fetching customer info:', error);
+    }
+  };
+
+  useEffect(() => {
+    getCustomerInfo();
+  }, [id]);
+
+  const resetToInitialValues = () => {
+    setName(initialData.name);
+    setPhone(initialData.phone);
+    setBirth(initialData.birthday);
+    setEmail(initialData.email);
+    setGender(initialData.gender);
+    setMemo(initialData.memo);
+  };
+
+  const editCustomerData = () => {
+    const updatedCustomerData = {
+      name,
+      phone,
+      birthday: birth,
+      email,
+      memo
+    };
+
+    console.log("updated Customer Data: ", updatedCustomerData);
+
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', updatedCustomerData.name);
+    formDataToSend.append('phone', updatedCustomerData.phone);
+    formDataToSend.append('birthday', updatedCustomerData.birthday);
+    formDataToSend.append('email', updatedCustomerData.email);
+    formDataToSend.append('memo', updatedCustomerData.memo);
+
+    axios.put(`/info/${id}`, formDataToSend, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        "Access-Control-Allow-Origin": "*",
+      },
+      withCredentials: true,
+    })
+      .then((response) => {
+        console.log("User data update successful.", response.data);
+      })
+      .catch((error) => {
+        console.error('Error updating user data', error.response.data.detail);
+      });
+  }
+
   return (
     <Container>
       <Title>Customer Info.</Title>
@@ -57,32 +139,14 @@ export default function CustomerInfoDetail() {
         />
       </InputsWrapper>
       <ButtonsWrapper>
-        <Button1
-          onClick={() => {
-            setName("");
-            setPhone("");
-            setBirth("");
-            setEmail("");
-            setGender(null);
-            setMemo("");
-          }}
-        >
+        <Button1 onClick={resetToInitialValues}>
           초기화
         </Button1>
-        <Button2 onClick={() => {}}>저장하기</Button2>
+        <Button2 onClick={editCustomerData}>저장하기</Button2>
       </ButtonsWrapper>
     </Container>
   );
 }
-const Container = styled.div`
-  width: 100vw;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background: var(--background-5, #fafaff);
-`;
 const Title = styled.p`
   margin: 0;
   margin-top: 80px;

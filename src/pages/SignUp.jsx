@@ -38,18 +38,19 @@ const SignUp = () => {
       return request;
     }*/
 
+    /*
     // axios post request for verifying if code is correct
     const verifyCode = (email, code) => {
       console.log(email);
       console.log(code);
-      const verifyUrl = `http://localhost:8000/signup/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`;
+      const verifyUrl = `/signup/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`;
       const request = axios.post(verifyUrl, null, {
         headers: {
           'Accept': 'application/json',
         },
       });
       return request;
-    };
+    };*/
 
     /*
     // verify email by sending code
@@ -73,7 +74,7 @@ const SignUp = () => {
 
     console.log(email);
     
-    const requestVerificationUrl = `http://localhost:8000/signup/request-verification?email=${encodeURIComponent(email)}`;
+    const requestVerificationUrl = `/signup/request-verification?email=${encodeURIComponent(email)}`;
     console.log(requestVerificationUrl);
     
     axios.post(requestVerificationUrl, null, {
@@ -97,8 +98,8 @@ const SignUp = () => {
     const handleVerifyCode = () => {
       console.log(email);
       console.log(code);
-      const verifyUrl = `http://localhost:8000/signup/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`;
-      const request = axios.post(verifyUrl, null, {
+      const verifyUrl = `/signup/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`;
+      axios.post(verifyUrl, null, {
         headers: {
           'Accept': 'application/json',
         },
@@ -110,8 +111,6 @@ const SignUp = () => {
         .catch((error) => {
           console.error('Code verification failed:', error);
         });
-      console.log(email);
-      console.log(code);
     };
 
     const handleChange = (e) => {
@@ -134,7 +133,9 @@ const SignUp = () => {
       try {
         const response = await axios.post('/signup', signUpData);
         console.log('Sign Up Successful', response.data);
-        //navigate('/complete');
+
+        const userName = signUpData.name;
+        navigate('/complete', { state: { userName } });
       } catch (error) {
         console.error('Sign Up Failed', error.response.data);
         const warning = "Sign Up Failed. " + error.response.data.detail;
