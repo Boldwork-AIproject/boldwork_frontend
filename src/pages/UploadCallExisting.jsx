@@ -9,14 +9,37 @@ export default function UploadCallExisting() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const data = [
+  const [existingUserData, setExistingUserData] = useState([
     { name: "권준수", phone: "010-2904-4985", email: "gwonjoonsoo@naver.com" },
     { name: "권준수", phone: "010-3422-0099", email: "gwonjoonsoo@gmail.com" },
     { name: "권준수", phone: "010-2904-4985", email: "gwonjoonsoo@naver.com" },
     { name: "권준수", phone: "010-3422-0099", email: "gwonjoonsoo@gmail.com" },
     { name: "권준수", phone: "010-2904-4985", email: "gwonjoonsoo@naver.com" },
     { name: "권준수", phone: "010-3422-0099", email: "gwonjoonsoo@gmail.com" },
-  ];
+  ]);
+
+
+
+  const findExistingCustomer = async() => {
+    console.log("Name:", name);
+    console.log("Phone:", phone);
+
+    /*
+    try {
+      const response = axios.get('/upload/existing', 
+      {
+        name: name,
+        phone: phone
+      }, headers: {
+        'Accept': 'application/json',
+      },
+      )
+    } catch (error) {
+
+    }
+    */
+  }
+
   return (
     <Container>
       <Title>Upload Call</Title>
@@ -45,7 +68,16 @@ export default function UploadCallExisting() {
         </GrayButton>
         <GrayButton
           onClick={() => {
-            setShowSearch(true);
+            if (name || phone) {
+              try {
+                findExistingCustomer();
+              } catch (error) {
+                alert("User does not exit.");
+              }
+              setShowSearch(true);
+            } else {
+              alert("Insert name or phone number of existing user.");
+            }
           }}
         >
           검색하기
@@ -54,14 +86,14 @@ export default function UploadCallExisting() {
       {showSearch ? (
         <Search>
           <Box>
-            {data.map((el, idx) => (
+            {existingUserData.map((el, idx) => (
               <BoxContentWrapper>
                 <BoxContent>
                   <BoxName>{el.name}</BoxName>
                   <BoxPhone>{el.phone}</BoxPhone>
                   <BoxEmail>{el.email}</BoxEmail>
                 </BoxContent>
-                {idx !== data.length - 1 ? <Line /> : null}
+                {idx !== existingUserData.length - 1 ? <Line /> : null}
               </BoxContentWrapper>
             ))}
           </Box>

@@ -160,11 +160,11 @@ const PlayerOnly = () => {
 }
 
 const Player = ({ audio_file }) => {
-  console.log("Player audio: ", audio_file);
+  //console.log("Player audio: ", audio_file);
 
   const audioUrl = `http://localhost:8000${audio_file}`;
   //const audioUrl = `../../backend${audio_file}`;
-  console.log("Edited full audio url: ", audioUrl);
+  //console.log("Edited full audio url: ", audioUrl);
 
   const sample_audio = '/sample_audio/sample_audio.mp3';
 

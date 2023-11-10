@@ -5,8 +5,9 @@ import "../assets/TextSphere.css";
 // Importing TagCloud package
 import TagCloud from "TagCloud";
 
-const TextSphere = () => {
+const TextSphere = (whole_keywords) => {
   // Animation settings for Text Cloud
+
   useEffect(() => {
     return () => {
       const container = ".tagcloud";
@@ -21,6 +22,12 @@ const TextSphere = () => {
         "수수료",
       ];
 
+      const mappedWholeKeywords = Object.values(whole_keywords).map((wholeKeywordArray) => {
+        return wholeKeywordArray[0];
+      });
+
+      console.log("MAPPED KEYWORDS: ", mappedWholeKeywords);
+
       const options = {
         radius: 300,
         maxSpeed: "normal",
@@ -34,7 +41,7 @@ const TextSphere = () => {
 
   return (
     <>
-      <div className="text-shpere">
+      <div className="text-sphere">
         {/* span tag className must be "tagcloud"  */}
         <span className="tagcloud"></span>
       </div>

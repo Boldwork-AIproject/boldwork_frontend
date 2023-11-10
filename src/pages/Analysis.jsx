@@ -11,7 +11,7 @@ import { PrevNextContainer, ButtonLargePrimary, ButtonLargeOutline } from "../st
 import ScoreBoxes from '../components/scoreBoxes';
 import Table from '../components/table';
 import { LineChart } from '@mui/x-charts';
-import TextSphere from "../components/TextSphre";
+import TextSphere from "../components/TextSphere";
 
 const getMessageType = (type) => {
   return type === "consultant" ? "purple" : "white";
@@ -215,7 +215,7 @@ export default function Analysis() {
       accessorFn: row => row.fluc,
     }
   ]
-  const keyword_data = [
+  const [keywordData, setKeywordData] = useState([
     {
       id: 0,
       rank: 1,
@@ -265,7 +265,30 @@ export default function Analysis() {
       freq: 1,
       fluc: 100,
     }
-  ];
+  ]);
+
+  const keywords = inferredData.keywords;
+
+  const getKeywordsData = () => {
+    const mappedKeywordData = keywords.map((keywordArray, index) => {
+      const word = keywordArray[0];
+      const freq = keywordArray[1];
+      const fluc = keywordArray[2];
+    
+      return {
+        id: index,
+        rank: index + 1,
+        word: word,
+        freq: freq,
+        fluc: fluc,
+      };
+    });
+    setKeywordData(mappedKeywordData);
+  }
+
+  useEffect(() => {
+    getKeywordsData();
+  }, [keywordData])
 
   const getConversationData = async() => {
     try {
@@ -385,10 +408,10 @@ export default function Analysis() {
         {selectedNavItem === 'link-2' && selectedNavItem2 === 'keyword' && (
           <div style={BlockContainer}>
             <div style={Block}>
-              <TextSphere />
+              <TextSphere whole_keywords={inferredData.whole_keywords}/>
             </div>
             <div style={Block}>
-              <Table data={keyword_data} columns={keyword_column} />
+              <Table data={keywordData} columns={keyword_column} />
             </div>
           </div>
         )}

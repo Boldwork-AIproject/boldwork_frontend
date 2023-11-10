@@ -9,8 +9,8 @@ import SaveCompleteModal from "../components/SaveCompleteModal";
 export default function MyPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("1111111111");
-  const [confirmPassword, setConfirmPassword] = useState("1111111111");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [birth, setBirth] = useState("");
@@ -65,7 +65,7 @@ export default function MyPage() {
 
     const formDataToSend = new FormData();
     formDataToSend.append('email', updatedUserData.email);
-    formDataToSend.append('password', updatedUserData.password);
+    //formDataToSend.append('password', updatedUserData.password);
     formDataToSend.append('name', updatedUserData.name);
     formDataToSend.append('phone', updatedUserData.phone);
     formDataToSend.append('birthday', updatedUserData.birthday);

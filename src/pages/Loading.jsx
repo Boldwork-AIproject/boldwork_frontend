@@ -10,6 +10,7 @@ export default function Loading() {
 setTimeout을 이용해 몇 초 머물렀다가 페이지 전환할 수 있음
 */
 const navigate = useNavigate();
+/* //ignore timer
   useEffect(()=>{
     const timer = setTimeout(()=> {
         navigate("/check")
@@ -17,7 +18,7 @@ const navigate = useNavigate();
 
     return()=> clearTimeout(timer);
   }, [navigate]);
-
+*/
   return (
     <Container>
       <Image src={image} />
