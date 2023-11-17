@@ -3,8 +3,10 @@ import axios from '../axios.js';
 import React, { useState } from "react";
 import "../App.css";
 import { Container, Form } from "react-bootstrap";
-import { ButtonBlockPrimary, KakaoLabelIcon, NaverLabelIcon } from "../styledComponents"
+import { ButtonBlockPrimary, NaverLabelIcon } from "../styledComponents"
 import { Link, useNavigate } from 'react-router-dom';
+import KakaoLogin from "./SocialLoginKakao";
+import NaverLogin from "./SocialLoginNaver";
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -78,18 +80,18 @@ const Login = ({ onLogin }) => {
           
           <Link to="/kakao-login" style={{textDecoration: "none", color:"inherit"}}>
           <Container id="kakao_login" style={logoContainer}>
-            <KakaoLabelIcon />
+            <KakaoLogin />
             <p style={{fontSize:"var(--body-4)", marginTop:"8px"}}>카카오톡으로 시작</p>
           </Container>
           </Link>
 
           <Link to="/naver-login" style={{textDecoration: "none", color:"inherit"}}>
             <Container id="naver_login" style={logoContainer}>
-              <NaverLabelIcon />
+              <NaverLogin />
               <p style={{fontSize:"var(--body-4)", marginTop:"8px"}}>네이버로 시작</p>
             </Container>
           </Link>
-          
+
         </Container>
       </Container>
     </>
