@@ -19,6 +19,7 @@ import MyPage from "./pages/MyPage";
 import Analysis from "./pages/Analysis";
 import Loading from "./pages/Loading";
 //import TestComponents from "./styledTest.js";
+import NaverCallback from "./pages/SocialLoginNaverCallback.jsx";
 
 function App() {
   // get access token from cookie
@@ -35,6 +36,8 @@ function App() {
   const handleLogout = () => {
     try {
       Cookies.remove('access_token');
+      // Remove Naver access token
+      //Cookies.remove("com.naver.nid.access_token");
       setIsLoggedIn(false);
       console.log('Logout successful');
 
@@ -72,6 +75,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Main />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/naver-login" element={<NaverCallback onLogin={handleLogin} />} />
           <Route path="/signup" element={<SignUp />} />
             <Route path="complete" element={<SignupComplete />} />
           <Route path="/upload">
